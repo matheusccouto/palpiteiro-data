@@ -48,8 +48,8 @@ WITH scout AS (
             s.penalty_save
         ) AS defensive
     FROM
-        {{ ref("stg_pontuados_scoring") }} s
-        LEFT JOIN {{ ref("dim_position") }} p ON s.position = p.id
+        {{ ref("stg_pontuados_scoring") }} AS s
+    LEFT JOIN {{ ref("dim_position") }} AS p ON s.position = p.id
 ),
 
 point AS (
@@ -59,9 +59,9 @@ point AS (
         round,
         season,
         played,
-        IF(played IS TRUE, ROUND(offensive, 1), NULL) AS offensive,
-        IF(played IS TRUE, ROUND(defensive, 1), NULL) AS defensive,
-        IF(played IS TRUE, ROUND(offensive + defensive, 1), NULL) AS total
+        if(played IS TRUE, round(offensive, 1), NULL) AS offensive,
+        if(played IS TRUE, round(defensive, 1), NULL) AS defensive,
+        if(played IS TRUE, round(offensive + defensive, 1), NULL) AS total
     FROM
         scout
 )

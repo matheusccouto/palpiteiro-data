@@ -9,6 +9,6 @@
     )
 }}
 
-SELECT * FROM {{ source("cartola", "partidas") }}
+    SELECT * FROM {{ source("cartola", "partidas") }}
 
 {% endsnapshot %}

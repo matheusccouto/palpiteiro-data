@@ -1,5 +1,4 @@
 SELECT
-    CONCAT(CAST(season AS STRING), " ", home, " x ", away) AS id,
     season,
     timestamp,
     home,
@@ -13,6 +12,7 @@ SELECT
     avg_home,
     avg_away,
     avg_draw,
-    loaded_at
+    loaded_at,
+    CONCAT(CAST(season AS STRING), " ", home, " x ", away) AS id
 FROM
-    {{ source ('odds', 'brasileirao') }} 
+    {{ source ('odds', 'brasileirao') }}

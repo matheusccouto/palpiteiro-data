@@ -9,6 +9,6 @@
     )
 }}
 
-SELECT * FROM {{ ref("dim_player_last") }}
+    SELECT * FROM {{ ref("dim_player_last") }}
 
 {% endsnapshot %}

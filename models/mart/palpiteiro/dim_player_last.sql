@@ -1,12 +1,14 @@
 WITH player AS (
-    SELECT
-        *
+    SELECT *
     FROM
         {{ ref("fct_player") }}
     WHERE
-        all_time_round = (SELECT MAX(all_time_round) FROM {{ ref("fct_match") }}) 
+        all_time_round = (
+            SELECT MAX(all_time_round) FROM {{ ref("fct_match") }}
+        )
         AND valid IS TRUE
 ),
+
 ai AS (
     SELECT
         p.id,
@@ -16,10 +18,10 @@ ai AS (
         p.position,
         p.price_cartola,
         p.price_cartola_express,
-        IF (
-            position = 'coach', 
-            NULL, 
-            {{ target.dataset }}.predict_points(
+        IF(
+            position = 'coach',
+            NULL,
+            {{ target.dataset }}.PREDICT_POINTS(
                 position,
                 total_points_last_5_at,
                 offensive_points_last_5_at,
@@ -55,14 +57,15 @@ ai AS (
                 played_last_19
             )
         ) AS points,
-        IF (p.status = 'expected', 1, 0) AS participate
+        IF(p.status = 'expected', 1, 0) AS participate
     FROM
-        player p
+        player AS p
 ),
+
 club_agg AS (
     SELECT
         club,
-        AVG(points * participate) AS points,
+        AVG(points * participate) AS points
     FROM
         ai
     WHERE
@@ -70,14 +73,15 @@ club_agg AS (
     GROUP BY
         club
 ),
+
 expected_to_play AS (
-    SELECT
-        *
+    SELECT *
     FROM
         ai
     WHERE
         participate > 0.5
 )
+
 SELECT
     e2p.player AS id,
     e2p.timestamp,
@@ -90,12 +94,12 @@ SELECT
     e2p.price_cartola,
     e2p.price_cartola_express,
     CASE
-        WHEN e2p.position = 'coach' THEN round(ca.points, 2)
-        ELSE round(e2p.points * e2p.participate, 2)
+        WHEN e2p.position = 'coach' THEN ROUND(ca.points, 2)
+        ELSE ROUND(e2p.points * e2p.participate, 2)
     END AS points,
-    current_timestamp AS materialized_at
+    CURRENT_TIMESTAMP AS materialized_at
 FROM
-    expected_to_play e2p
-    LEFT JOIN {{ ref("dim_player") }} dp ON e2p.player = dp.id
-    LEFT JOIN {{ ref("dim_club") }} c ON e2p.club = c.slug
-    LEFT JOIN club_agg ca ON ca.club = e2p.club
+    expected_to_play AS e2p
+LEFT JOIN {{ ref("dim_player") }} AS dp ON e2p.player = dp.id
+LEFT JOIN {{ ref("dim_club") }} AS c ON e2p.club = c.slug
+LEFT JOIN club_agg AS ca ON ca.club = e2p.club
