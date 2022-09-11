@@ -47,12 +47,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": [
-		"echo -e \"$GCP_KEYFILE\" > ~/keyfile.json",
-		"pip install --upgrade pip wheel",
-		"pip install -r requirements.txt",
-		"pip install -r requirements-dev.txt"
-	],
+	"postCreateCommand": "make codespaces",
 
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode",
