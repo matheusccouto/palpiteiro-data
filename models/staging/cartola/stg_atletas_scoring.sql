@@ -32,7 +32,9 @@ SELECT
     curr.matches,
     IF(curr.season >= 2022, curr.status, prev.status) AS status,
     IF(curr.season >= 2022, curr.price, curr.price - curr.variation) AS price,
-    IF(curr.season >= 2022, curr.variation, COALESCE(prev.variation, 0)) AS variation
+    IF(
+        curr.season >= 2022, curr.variation, COALESCE(prev.variation, 0)
+    ) AS variation
 FROM
     scoring AS curr
 LEFT JOIN
