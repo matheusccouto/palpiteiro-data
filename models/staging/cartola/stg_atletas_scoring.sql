@@ -30,18 +30,9 @@ SELECT
     curr.points,
     curr.mean,
     curr.matches,
-    CASE
-        WHEN curr.season >= 2022 THEN curr.status
-        ELSE prev.status
-    END AS status,
-    CASE
-        WHEN curr.season >= 2022 THEN curr.price
-        ELSE curr.price - curr.variation
-    END AS price,
-    CASE
-        WHEN curr.season >= 2022 THEN curr.variation
-        ELSE COALESCE(prev.variation, 0)
-    END AS variation
+    IF(curr.season >= 2022, curr.status, prev.status) AS status,
+    IF(curr.season >= 2022, curr.price, curr.price - curr.variation) AS price,
+    IF(curr.season >= 2022, curr.variation, COALESCE(prev.variation, 0)) AS variation
 FROM
     scoring AS curr
 LEFT JOIN

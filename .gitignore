@@ -1,6 +1,12 @@
+# Google Cloud
+keyfile.json
+
 # dbt
 target/
 logs/
+
+# bigquery
+.user.yml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
