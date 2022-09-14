@@ -3,3 +3,43 @@ version: 2
 models:
   - name: stg_brasileirao_h2h
     description: Brasileirão head-to-head odds.
+    columns:
+      - name: id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+      - name: season
+        description: Season
+        tests:
+          - not_null
+      - name: timestamp
+        description: Match timestamp
+        tests:
+          - not_null
+      - name: home
+        description: Home team
+        tests:
+          - not_null
+      - name: away
+        description: Away team
+        tests:
+          - not_null
+      - name: pinnacle_home
+        description: Home team odds on Pinnacle
+      - name: pinnacle_away
+        description: Away team odds on Pinnacle
+      - name: pinnacle_draw
+        description: Draw odds on Pinnacle
+      - name: max_home
+        description: Home team max odds
+      - name: max_away
+        description: Away team max odds
+      - name: max_draw
+        description: Draw max odds
+      - name: avg_home
+        description: Home team average odds
+      - name: avg_away
+        description: Away team average odds
+      - name: avg_draw
+        description: Draw average odds

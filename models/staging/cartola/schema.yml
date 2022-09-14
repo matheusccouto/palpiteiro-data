@@ -138,6 +138,28 @@ models:
         description: Broadcasting label
       - name: broadcasting_url
         description: Broadcasting URL
+      - name: previous_result_1_home
+        description: results from 1 match ago at home
+      - name: previous_result_2_home
+        description: results from 2 matches ago at home
+      - name: previous_result_3_home
+        description: results from 3 matches ago at home
+      - name: previous_result_4_home
+        description: results from 4 matches ago at home
+      - name: previous_result_5_home
+        description: results from 5 matches ago at home
+      - name: previous_result_1_away
+        description: results from 1 match ago away
+      - name: previous_result_2_away
+        description: results from 2 matches ago away
+      - name: previous_result_3_away
+        description: results from 3 matches ago away
+      - name: previous_result_4_away
+        description: results from 4 matches ago away
+      - name: previous_result_5_away
+        description: results from 5 matches ago away
+
+
 
   - name: stg_pontuados_scoring
     description: Cartola players scoring for each round
