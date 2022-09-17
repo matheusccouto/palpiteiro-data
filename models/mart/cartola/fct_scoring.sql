@@ -1,7 +1,7 @@
 WITH scoring AS (
     SELECT
         *,
-        {{ target.dataset }}.offensive_points_cartola(
+        {{ target.dataset }}.OFFENSIVE_POINTS_CARTOLA(
             position,
             goal,
             assist,
@@ -24,7 +24,7 @@ WITH scoring AS (
             save,
             penalty_save
         ) AS offensive,
-        {{ target.dataset }}.defensive_points_cartola(
+        {{ target.dataset }}.DEFENSIVE_POINTS_CARTOLA(
             position,
             goal,
             assist,

@@ -1,6 +1,6 @@
 {% macro points_cartola() %}
 
-CREATE OR REPLACE FUNCTION {{ target.dataset }}.offensive_points_cartola(
+CREATE OR REPLACE FUNCTION {{ target.dataset }}.OFFENSIVE_POINTS_CARTOLA(
     position STRING,
     goal INT,
     assist INT,
@@ -35,7 +35,7 @@ CREATE OR REPLACE FUNCTION {{ target.dataset }}.offensive_points_cartola(
     - IF(position != 'goalkeeper', 0.1 * missed_pass, 0.0)
 );
 
-CREATE OR REPLACE FUNCTION {{ target.dataset }}.defensive_points_cartola(
+CREATE OR REPLACE FUNCTION {{ target.dataset }}.DEFENSIVE_POINTS_CARTOLA(
     position STRING,
     goal INT,
     assist INT,

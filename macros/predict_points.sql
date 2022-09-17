@@ -1,6 +1,6 @@
 {% macro predict_points() %}
 
-CREATE OR REPLACE FUNCTION {{ target.dataset }}.predict_points(
+CREATE OR REPLACE FUNCTION {{ target.dataset }}.PREDICT_POINTS(
     position STRING,
     total_points_last_5_at FLOAT64,
     offensive_points_last_5_at FLOAT64,
