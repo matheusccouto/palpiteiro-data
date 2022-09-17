@@ -1,26 +1,26 @@
 WITH scoring AS (
     SELECT
-        atleta_id AS player,
-        rodada_id AS round,
-        temporada_id AS season,
+        atl.atleta_id AS player,
+        atl.rodada_id AS round,
+        atl.temporada_id AS season,
         clb.slug AS club,
-        p.slug AS position,
-        s.slug AS status,
-        pontos_num AS points,
-        preco_num AS price,
-        variacao_num AS variation,
-        media_num AS mean,
+        pos.slug AS position,
+        sts.slug AS status,
+        atl.pontos_num AS points,
+        atl.preco_num AS price,
+        atl.variacao_num AS variation,
+        atl.media_num AS mean,
         CAST(
             (
-                temporada_id - 2000
-            ) * 100000000 + rodada_id * 1000000 + atleta_id AS int
+                atl.temporada_id - 2000
+            ) * 100000000 + atl.rodada_id * 1000000 + atl.atleta_id AS int
         ) AS id,
-        COALESCE(jogos_num, 0) AS matches
+        COALESCE(atl.jogos_num, 0) AS matches
     FROM
-        {{ source("cartola", "atletas") }}
-    LEFT JOIN {{ ref ("dim_position") }} AS p ON posicao_id = p.id
-    LEFT JOIN {{ ref ("dim_status") }} AS s ON status_id = s.id
-    LEFT JOIN {{ ref ("dim_club") }} AS clb ON clube_id = clb.id
+        {{ source("cartola", "atletas") }} AS atl
+    LEFT JOIN {{ ref ("dim_position") }} AS pos ON atl.posicao_id = pos.id
+    LEFT JOIN {{ ref ("dim_status") }} AS sts ON atl.status_id = s.id
+    LEFT JOIN {{ ref ("dim_club") }} AS clb ON atl.clube_id = clb.id
 
 )
 
@@ -43,4 +43,6 @@ FROM
     scoring AS curr
 LEFT JOIN
     scoring AS prev ON
-        curr.season = prev.season AND curr.round = prev.round + 1 AND curr.player = prev.player
+        curr.season = prev.season
+        AND curr.round = prev.round + 1
+        AND curr.player = prev.player
