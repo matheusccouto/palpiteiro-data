@@ -1,19 +1,21 @@
 SELECT
-    CONCAT(CAST(season AS STRING), " ", home, " x ", away) AS id,
-    season,
-    timestamp,
+    odds.season,
+    odds.timestamp,
     c_home.slug AS home,
     c_away.slug AS away,
-    pinnacle_home,
-    pinnacle_away,
-    pinnacle_draw,
-    max_home,
-    max_away,
-    max_draw,
-    avg_home,
-    avg_away,
-    avg_draw
+    odds.pinnacle_home,
+    odds.pinnacle_away,
+    odds.pinnacle_draw,
+    odds.max_home,
+    odds.max_away,
+    odds.max_draw,
+    odds.avg_home,
+    odds.avg_away,
+    odds.avg_draw,
+    CONCAT(
+        CAST(odds.season AS STRING), " ", c_home.slug, " x ", c_away.slug
+    ) AS odd_id
 FROM
-    {{ source ('odds', 'brasileirao') }}
+    {{ source ('odds', 'brasileirao') }} AS odds
 LEFT JOIN {{ ref ("dim_slug") }} AS c_home ON home = c_home.name
 LEFT JOIN {{ ref ("dim_slug") }} AS c_away ON away = c_away.name
