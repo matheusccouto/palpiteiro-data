@@ -53,8 +53,7 @@ WITH scoring AS (
 
 point AS (
     SELECT
-        id,
-        player,
+        player_id,
         round,
         season,
         played,
@@ -86,8 +85,7 @@ point AS (
 )
 
 SELECT
-    atl.id,
-    atl.player,
+    atl.player_id,
     atl.club,
     atl.position,
     atl.status,
@@ -121,4 +119,4 @@ SELECT
     38 * (atl.season - 2017) + atl.round AS all_time_round
 FROM
     {{ ref ("stg_atletas_scoring") }} AS atl
-LEFT JOIN point AS pnt ON atl.id = pnt.id
+LEFT JOIN point AS pnt ON atl.player_id = pnt.player_id

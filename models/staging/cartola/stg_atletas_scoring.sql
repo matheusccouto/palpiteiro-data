@@ -1,6 +1,6 @@
 WITH scoring AS (
     SELECT
-        atl.atleta_id AS player,
+        atl.atleta_id AS player_id,
         atl.rodada_id AS round,
         atl.temporada_id AS season,
         clb.slug AS club,
@@ -10,11 +10,6 @@ WITH scoring AS (
         atl.preco_num AS price,
         atl.variacao_num AS variation,
         atl.media_num AS mean,
-        CAST(
-            (
-                atl.temporada_id - 2000
-            ) * 100000000 + atl.rodada_id * 1000000 + atl.atleta_id AS int
-        ) AS play_id,
         COALESCE(atl.jogos_num, 0) AS matches
     FROM
         {{ source("cartola", "atletas") }} AS atl
@@ -25,8 +20,7 @@ WITH scoring AS (
 )
 
 SELECT
-    curr.play_id,
-    curr.player,
+    curr.player_id,
     curr.round,
     curr.season,
     curr.club,
@@ -45,4 +39,4 @@ LEFT JOIN
     scoring AS prev ON
         curr.season = prev.season
         AND curr.round = prev.round + 1
-        AND curr.player = prev.player
+        AND curr.player_id = prev.player_id

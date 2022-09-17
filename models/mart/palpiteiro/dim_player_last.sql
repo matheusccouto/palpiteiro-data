@@ -11,8 +11,7 @@ WITH player AS (
 
 ai AS (
     SELECT
-        p.id,
-        p.player,
+        p.player_id,
         p.club,
         p.timestamp,
         p.position,
@@ -85,7 +84,7 @@ expected_to_play AS (
 SELECT
     e2p.player AS id,
     e2p.timestamp,
-    dp.short_nickname AS name,
+    dp.short_nickname AS name, -- noqa: L029
     dp.photo,
     c.id AS club,
     c.short_name AS club_name,

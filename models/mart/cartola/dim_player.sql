@@ -1,5 +1,5 @@
 SELECT
-    id,
+    player_id,
     name,
     nickname,
     photo,

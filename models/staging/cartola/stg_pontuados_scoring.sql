@@ -1,15 +1,10 @@
 SELECT
-    pnt.id AS player,
+    pnt.id AS player_id,
     pnt.rodada AS round,
     pnt.temporada AS season,
     clb.slug AS club,
     pos.slug AS position,
     pnt.pontuacao AS points,
-    CAST(
-        (
-            pnt.temporada - 2000
-        ) * 100000000 + pnt.rodada * 1000000 + pnt.id AS int
-    ) AS play_id,
     CAST(
         IF(
             pnt.posicao_id = 6,

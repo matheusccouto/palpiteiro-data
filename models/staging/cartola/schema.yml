@@ -4,12 +4,7 @@ models:
   - name: stg_atletas_scoring
     description: Cartola players scoring for each round
     columns:
-      - name: play_id
-        description: Primary key
-        tests:
-          - unique
-          - not_null
-      - name: player
+      - name: player_id
         description: Player ID
         tests:
           - not_null
@@ -96,11 +91,6 @@ models:
   - name: stg_partidas_match
     description: Cartola matches
     columns:
-      - name: match_id
-        description: Primary key
-        tests:
-          - unique
-          - not_null
       - name: season
         description: Season
         tests:
@@ -175,12 +165,7 @@ models:
   - name: stg_pontuados_scoring
     description: Cartola players scoring for each round
     columns:
-      - name: play_id
-        description: Primary key
-        tests:
-          - unique
-          - not_null
-      - name: player
+      - name: player_id
         description: Player ID
         tests:
           - not_null

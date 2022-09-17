@@ -24,12 +24,6 @@ SELECT
     ptd.aproveitamento_visitante_2 AS previous_result_3_away,
     ptd.aproveitamento_visitante_1 AS previous_result_4_away,
     ptd.aproveitamento_visitante_0 AS previous_result_5_away,
-    CAST(
-        (
-            ptd.temporada - 2000
-        ) * 100000000 + ptd.clube_casa_id
-        * 10000 + ptd.clube_visitante_id AS INT
-    ) AS match_id,
     TIMESTAMP(ptd.partida_data, "America/Sao_Paulo") AS timestamp, -- noqa: L029
     TIMESTAMP(ptd.inicio_cronometro_tr) AS broadcasting_time_start
 FROM

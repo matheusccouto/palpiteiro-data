@@ -1,6 +1,6 @@
 WITH h2h AS (
     SELECT
-        h2h.id,
+        h2h.odds_id,
         h2h.season,
         h2h.timestamp,
         h2h.home AS club,
@@ -20,7 +20,7 @@ WITH h2h AS (
 
 inv AS (
     SELECT
-        id,
+        odds_id,
         season,
         timestamp,
         opponent AS club,
@@ -39,7 +39,7 @@ inv AS (
 )
 
 SELECT
-    id,
+    odds_id,
     season,
     timestamp,
     club,
@@ -57,7 +57,7 @@ FROM
     h2h
 UNION ALL
 SELECT
-    id,
+    odds_id,
     season,
     timestamp,
     club,

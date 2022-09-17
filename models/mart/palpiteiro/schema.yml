@@ -4,7 +4,7 @@ models:
   - name: fct_player
     description: Players data for each round
     columns:
-      - name: player
+      - name: player_id
         description: Player ID
         tests:
           - not_null
