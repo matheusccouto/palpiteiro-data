@@ -1,6 +1,5 @@
 SELECT
     player_id,
-    name,
     nickname,
     photo,
     slug,

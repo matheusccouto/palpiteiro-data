@@ -1,6 +1,5 @@
 SELECT
     atleta_id AS player_id,
-    nome AS name, -- noqa: L029
     apelido AS nickname,
     COALESCE(
         slug,

@@ -13,17 +13,6 @@ SELECT
     spi.importance2 AS importance_away,
     spi.proj_score1 AS proj_score_home,
     spi.proj_score2 AS proj_score_away,
-    spi.score1 AS score_home,
-    spi.score2 AS score_away,
-    spi.adj_score1 AS adj_score_home,
-    spi.adj_score2 AS adj_score_away,
-    spi.xg1 AS xg_home,
-    spi.xg2 AS xg_away,
-    spi.nsxg1 AS nsxg_home,
-    spi.nsxg2 AS nsxg_away,
-    CONCAT(
-        CAST(spi.season AS STRING), " ", spi.team1, " x ", spi.team2
-    ) AS spi_id,
     DATE(spi.date) AS date -- noqa: L029
 FROM
     {{ source ('fivethirtyeight', 'spi') }} AS spi

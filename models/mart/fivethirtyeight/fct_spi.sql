@@ -13,14 +13,6 @@ WITH spi AS (
         prob_tie,
         proj_score_home AS proj_score_club,
         proj_score_away AS proj_score_opponent,
-        score_home AS score_club,
-        score_away AS score_opponent,
-        adj_score_home AS adj_score_club,
-        adj_score_away AS adj_score_opponent,
-        xg_home AS xg_club,
-        xg_away AS xg_opponent,
-        nsxg_home AS nsxg_club,
-        nsxg_away AS nsxg_opponent,
         COALESCE(
             importance_home,
             AVG(importance_home) OVER (PARTITION BY EXTRACT(WEEK FROM date))
@@ -47,15 +39,7 @@ inv AS (
         importance_club AS importance_opponent,
         importance_opponent AS importance_club,
         proj_score_club AS proj_score_opponent,
-        proj_score_opponent AS proj_score_club,
-        score_club AS score_opponent,
-        score_opponent AS score_club,
-        adj_score_club AS adj_score_opponent,
-        adj_score_opponent AS adj_score_club,
-        xg_club AS xg_opponent,
-        xg_opponent AS xg_club,
-        nsxg_club AS nsxg_opponent,
-        nsxg_opponent AS nsxg_club
+        proj_score_opponent AS proj_score_club
     FROM
         spi
 )
@@ -73,15 +57,7 @@ SELECT
     importance_club,
     importance_opponent,
     proj_score_club,
-    proj_score_opponent,
-    score_club,
-    score_opponent,
-    adj_score_club,
-    adj_score_opponent,
-    xg_club,
-    xg_opponent,
-    nsxg_club,
-    nsxg_opponent
+    proj_score_opponent
 FROM
     spi
 UNION ALL
@@ -98,14 +74,6 @@ SELECT
     importance_club,
     importance_opponent,
     proj_score_club,
-    proj_score_opponent,
-    score_club,
-    score_opponent,
-    adj_score_club,
-    adj_score_opponent,
-    xg_club,
-    xg_opponent,
-    nsxg_club,
-    nsxg_opponent
+    proj_score_opponent
 FROM
     inv

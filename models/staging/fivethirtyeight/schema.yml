@@ -4,11 +4,6 @@ models:
   - name: stg_spi_match
     description: Brasileirão Fivethirtyeight Soccer Power Index
     columns:
-      - name: spi_id
-        description: Primary key
-        tests:
-          - unique
-          - not_null
       - name: season
         description: Season
         tests:
@@ -70,19 +65,3 @@ models:
         description: Away club projected score
         tests:
           - not_null
-      - name: score_home
-        description: Home club score
-      - name: score_away
-        description: Away club score
-      - name: adj_score_home
-        description: Home club adjusted score
-      - name: adj_score_away
-        description: Away club adjusted score
-      - name: xg_home
-        description: Home club shot-based expected goals
-      - name: xg_away
-        description: Away club shot-based expected goals
-      - name: nsxg_home
-        description: Home club non-shot expected goals
-      - name: nsxg_away
-        description: Away club non-shot expected goals
