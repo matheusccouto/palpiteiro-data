@@ -9,7 +9,7 @@ SELECT
         (
             pnt.temporada - 2000
         ) * 100000000 + pnt.rodada * 1000000 + pnt.id AS int
-    ) AS id,
+    ) AS play_id,
     CAST(
         IF(
             pnt.posicao_id = 6,

@@ -14,18 +14,18 @@ WITH scoring AS (
             (
                 atl.temporada_id - 2000
             ) * 100000000 + atl.rodada_id * 1000000 + atl.atleta_id AS int
-        ) AS id,
+        ) AS play_id,
         COALESCE(atl.jogos_num, 0) AS matches
     FROM
         {{ source("cartola", "atletas") }} AS atl
     LEFT JOIN {{ ref ("dim_position") }} AS pos ON atl.posicao_id = pos.id
-    LEFT JOIN {{ ref ("dim_status") }} AS sts ON atl.status_id = s.id
+    LEFT JOIN {{ ref ("dim_status") }} AS sts ON atl.status_id = sts.id
     LEFT JOIN {{ ref ("dim_club") }} AS clb ON atl.clube_id = clb.id
 
 )
 
 SELECT
-    curr.id,
+    curr.play_id,
     curr.player,
     curr.round,
     curr.season,

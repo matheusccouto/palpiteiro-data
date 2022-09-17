@@ -4,7 +4,7 @@ models:
   - name: stg_spi_match
     description: Brasileirão Fivethirtyeight Soccer Power Index
     columns:
-      - name: id
+      - name: spi_id
         description: Primary key
         tests:
           - unique

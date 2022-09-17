@@ -4,7 +4,7 @@ models:
   - name: stg_brasileirao_h2h
     description: Brasileirão head-to-head odds.
     columns:
-      - name: id
+      - name: odds_id
         description: Primary key
         tests:
           - unique

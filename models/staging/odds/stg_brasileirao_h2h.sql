@@ -14,7 +14,7 @@ SELECT
     odds.avg_draw,
     CONCAT(
         CAST(odds.season AS STRING), " ", c_home.slug, " x ", c_away.slug
-    ) AS odd_id
+    ) AS odds_id
 FROM
     {{ source ('odds', 'brasileirao') }} AS odds
 LEFT JOIN {{ ref ("dim_slug") }} AS c_home ON home = c_home.name
