@@ -4,8 +4,8 @@ WITH spi AS (
         date,
         league_id,
         league,
-        slug_home.slug AS club,
-        slug_away.slug AS opponent,
+        home AS club,
+        away AS opponent,
         spi_home AS spi_club,
         spi_away AS spi_opponent,
         prob_home AS prob_club,
@@ -30,9 +30,7 @@ WITH spi AS (
             AVG(importance_away) OVER (PARTITION BY EXTRACT(WEEK FROM date))
         ) AS importance_opponent
     FROM
-        {{ ref ("stg_spi_match") }} AS spi
-    LEFT JOIN {{ ref ("dim_slug") }} AS slug_home ON spi.home = slug_home.name
-    LEFT JOIN {{ ref ("dim_slug") }} AS slug_away ON spi.away = slug_away.name
+        {{ ref ("stg_spi_match") }}
 ),
 
 inv AS (

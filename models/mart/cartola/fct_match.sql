@@ -4,14 +4,12 @@ WITH mat AS (
         round,
         timestamp,
         valid,
-        c_home.slug AS club,
-        c_away.slug AS opponent,
+        home AS club,
+        away AS opponent,
         TRUE AS home,
         38 * (season - 2017) + round AS all_time_round
     FROM
         {{ ref ('stg_partidas_match') }}
-    LEFT JOIN {{ ref ("dim_club") }} AS c_home ON home = c_home.id
-    LEFT JOIN {{ ref ("dim_club") }} AS c_away ON away = c_away.id
 ),
 
 inv AS (

@@ -13,24 +13,8 @@ models:
         description: Player ID
         tests:
           - not_null
-      - name: name
-        description: Player name
-        tests:
-          - not_null
-      - name: round
-        description: League round
-        tests:
-          - not_null
-      - name: season
-        description: League season
-        tests:
-          - not_null
       - name: all_time_round
         description: All time round starting in the 2017 season
-        tests:
-          - not_null
-      - name: club
-        description: Club
         tests:
           - not_null
       - name: position

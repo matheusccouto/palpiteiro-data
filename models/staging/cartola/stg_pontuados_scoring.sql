@@ -1,32 +1,44 @@
 SELECT
-    CAST((temporada - 2000) * 100000000 + rodada * 1000000 + id AS int) AS id,
-    CAST(id AS int) AS player,
-    CAST(rodada AS int) AS round,
-    CAST(temporada AS int) AS season,
-    CAST(clube_id AS int) AS club,
-    CAST(posicao_id AS int) AS position,
-    CAST(IF(posicao_id = 6, FALSE, COALESCE(entrou_em_campo, pontuacao != 0)) AS boolean) AS played,
-    CAST(pontuacao AS decimal) AS points,
-    CAST(COALESCE(g, 0) AS int) AS goal,
-    CAST(COALESCE(a, 0) AS int) AS assist,
-    CAST(COALESCE(ca, 0) AS int) AS yellow_card,
-    CAST(COALESCE(cv, 0) AS int) AS red_card,
-    CAST(COALESCE(ff, 0) AS int) AS missed_shoot,
-    CAST(COALESCE(ft, 0) AS int) AS on_post_shoot,
-    CAST(COALESCE(fd, 0) AS int) AS saved_shoot,
-    CAST(COALESCE(fs, 0) AS int) AS received_foul,
-    CAST(COALESCE(ps, 0) AS int) AS received_penalty,
-    CAST(COALESCE(pp, 0) AS int) AS missed_penalty,
-    CAST(COALESCE(i, 0) AS int) AS outside,
-    CAST(COALESCE(pe, pi, 0) AS INT) AS missed_pass,
-    CAST(COALESCE(rb, ds, 0) AS INT) AS tackle,
-    CAST(COALESCE(fc, 0) AS int) AS foul,
-    CAST(COALESCE(pc, 0) AS int) AS penalty,
-    CAST(COALESCE(gc, 0) AS int) AS own_goal,
-    CAST(COALESCE(gs, 0) AS int) AS allowed_goal,
-    CAST(COALESCE(sg, 0) AS int) AS no_goal,
+    pnt.id AS player,
+    pnt.rodada AS round,
+    pnt.temporada AS season,
+    clb.slug AS club,
+    pos.slug AS position,
+    pnt.pontuacao AS points,
+    CAST(
+        (
+            pnt.temporada - 2000
+        ) * 100000000 + pnt.rodada * 1000000 + pnt.id AS int
+    ) AS id,
+    CAST(
+        IF(
+            pnt.posicao_id = 6,
+            FALSE,
+            COALESCE(pnt.entrou_em_campo, pnt.pontuacao != 0)
+        ) AS boolean
+    ) AS played,
+    COALESCE(pnt.g, 0) AS goal,
+    COALESCE(pnt.a, 0) AS assist,
+    COALESCE(pnt.ca, 0) AS yellow_card,
+    COALESCE(pnt.cv, 0) AS red_card,
+    COALESCE(pnt.ff, 0) AS missed_shoot,
+    COALESCE(pnt.ft, 0) AS on_post_shoot,
+    COALESCE(pnt.fd, 0) AS saved_shoot,
+    COALESCE(pnt.fs, 0) AS received_foul,
+    COALESCE(pnt.ps, 0) AS received_penalty,
+    COALESCE(pnt.pp, 0) AS missed_penalty,
+    COALESCE(pnt.i, 0) AS outside,
+    COALESCE(pnt.pe, pi, 0) AS missed_pass,
+    COALESCE(pnt.rb, ds, 0) AS tackle,
+    COALESCE(pnt.fc, 0) AS foul,
+    COALESCE(pnt.pc, 0) AS penalty,
+    COALESCE(pnt.gc, 0) AS own_goal,
+    COALESCE(pnt.gs, 0) AS allowed_goal,
+    COALESCE(pnt.sg, 0) AS no_goal,
     -- Difficult Save was replaced by Save. I calculated that on average for each difficult save, there are 2.218 save.
-    CAST(COALESCE(de, ROUND(dd * 2.218, 0), 0) AS int) AS save,
-    CAST(COALESCE(dp, 0) AS int) AS penalty_save
+    COALESCE(pnt.de, CAST(ROUND(dd * 2.218, 0) AS int), 0) AS save,
+    COALESCE(pnt.dp, 0) AS penalty_save
 FROM
-    {{ source ('cartola', 'pontuados') }}
+    {{ source ('cartola', 'pontuados') }} AS pnt
+LEFT JOIN {{ ref ("dim_position") }} AS pos ON posicao_id = pos.id
+LEFT JOIN {{ ref ("dim_club") }} AS clb ON clube_id = clb.id

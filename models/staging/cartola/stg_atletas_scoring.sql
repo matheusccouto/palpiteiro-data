@@ -1,23 +1,27 @@
 WITH scoring AS (
     SELECT
+        atleta_id AS player,
+        rodada_id AS round,
+        temporada_id AS season,
+        clb.slug AS club,
+        p.slug AS position,
+        s.slug AS status,
+        pontos_num AS points,
+        preco_num AS price,
+        variacao_num AS variation,
+        media_num AS mean,
         CAST(
             (
                 temporada_id - 2000
             ) * 100000000 + rodada_id * 1000000 + atleta_id AS int
         ) AS id,
-        CAST(atleta_id AS int) AS player,
-        CAST(rodada_id AS int) AS round,
-        CAST(temporada_id AS int) AS season,
-        CAST(clube_id AS int) AS club,
-        CAST(posicao_id AS int) AS position,
-        CAST(status_id AS int) AS status,
-        CAST(pontos_num AS decimal) AS points,
-        CAST(preco_num AS decimal) AS price,
-        CAST(variacao_num AS decimal) AS variation,
-        CAST(media_num AS decimal) AS mean,
-        CAST(COALESCE(jogos_num, 0) AS int) AS matches
+        COALESCE(jogos_num, 0) AS matches
     FROM
         {{ source("cartola", "atletas") }}
+    LEFT JOIN {{ ref ("dim_position") }} AS p ON posicao_id = p.id
+    LEFT JOIN {{ ref ("dim_status") }} AS s ON status_id = s.id
+    LEFT JOIN {{ ref ("dim_club") }} AS clb ON clube_id = clb.id
+
 )
 
 SELECT

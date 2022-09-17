@@ -1,11 +1,10 @@
 SELECT
-    CAST((temporada - 2000) * 100000000 + clube_casa_id * 10000 + clube_visitante_id AS INT) AS id,
     temporada AS season,
     rodada AS round,
     local AS venue,
     valida AS valid,
-    clube_casa_id AS home,
-    clube_visitante_id AS away,
+    c_home.slug AS home,
+    c_away.slug AS away,
     clube_casa_posicao AS position_home,
     clube_visitante_posicao AS position_away,
     placar_oficial_mandante AS score_home,
@@ -25,7 +24,14 @@ SELECT
     aproveitamento_visitante_2 AS previous_result_3_away,
     aproveitamento_visitante_1 AS previous_result_4_away,
     aproveitamento_visitante_0 AS previous_result_5_away,
+    CAST(
+        (
+            temporada - 2000
+        ) * 100000000 + clube_casa_id * 10000 + clube_visitante_id AS INT
+    ) AS id,
     TIMESTAMP(partida_data, "America/Sao_Paulo") AS timestamp,
     TIMESTAMP(inicio_cronometro_tr) AS broadcasting_time_start
 FROM
     {{ source ('cartola', 'partidas') }}
+LEFT JOIN {{ ref ("dim_club") }} AS c_home ON clube_casa_id = c_home.id
+LEFT JOIN {{ ref ("dim_club") }} AS c_away ON clube_visitante_id = c_away.id
