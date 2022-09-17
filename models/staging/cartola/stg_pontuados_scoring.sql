@@ -28,17 +28,18 @@ SELECT
     COALESCE(pnt.ps, 0) AS received_penalty,
     COALESCE(pnt.pp, 0) AS missed_penalty,
     COALESCE(pnt.i, 0) AS outside,
-    COALESCE(pnt.pe, pi, 0) AS missed_pass,
-    COALESCE(pnt.rb, ds, 0) AS tackle,
+    COALESCE(pnt.pe, pnt.pi, 0) AS missed_pass,
+    COALESCE(pnt.rb, pnt.ds, 0) AS tackle,
     COALESCE(pnt.fc, 0) AS foul,
     COALESCE(pnt.pc, 0) AS penalty,
     COALESCE(pnt.gc, 0) AS own_goal,
     COALESCE(pnt.gs, 0) AS allowed_goal,
     COALESCE(pnt.sg, 0) AS no_goal,
-    -- Difficult Save was replaced by Save. I calculated that on average for each difficult save, there are 2.218 save.
-    COALESCE(pnt.de, CAST(ROUND(dd * 2.218, 0) AS int), 0) AS save,
+    -- Difficult Save was replaced by Save. I calculated that: 
+    -- On average for each difficult save, there are 2.218 save.
+    COALESCE(pnt.de, CAST(ROUND(pnt.dd * 2.218, 0) AS int), 0) AS save,
     COALESCE(pnt.dp, 0) AS penalty_save
 FROM
     {{ source ('cartola', 'pontuados') }} AS pnt
-LEFT JOIN {{ ref ("dim_position") }} AS pos ON posicao_id = pos.id
-LEFT JOIN {{ ref ("dim_club") }} AS clb ON clube_id = clb.id
+LEFT JOIN {{ ref ("dim_position") }} AS pos ON pnt.posicao_id = pos.id
+LEFT JOIN {{ ref ("dim_club") }} AS clb ON pnt.clube_id = clb.id
