@@ -6,8 +6,7 @@ WITH mat AS (
         valid,
         home AS club,
         away AS opponent,
-        TRUE AS home,
-        38 * (season - 2017) + round AS all_time_round
+        TRUE AS home
     FROM
         {{ ref ('stg_partidas_match') }}
 ),
@@ -16,7 +15,6 @@ inv AS (
     SELECT
         season,
         round,
-        all_time_round,
         timestamp,
         valid,
         club AS opponent,
@@ -29,7 +27,6 @@ inv AS (
 SELECT
     season,
     round,
-    all_time_round,
     timestamp,
     valid,
     club,
@@ -41,7 +38,6 @@ UNION ALL
 SELECT
     season,
     round,
-    all_time_round,
     timestamp,
     valid,
     club,

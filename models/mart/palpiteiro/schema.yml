@@ -8,10 +8,6 @@ models:
         description: Player ID
         tests:
           - not_null
-      - name: all_time_round
-        description: All time round starting in the 2017 season
-        tests:
-          - not_null
       - name: valid
         description: Is valid for this Cartola round
         tests:

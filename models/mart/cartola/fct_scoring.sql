@@ -72,8 +72,7 @@ SELECT
     pnt.total AS total_points,
     pnt.offensive AS offensive_points,
     pnt.defensive AS defensive_points,
-    pnt.played,
-    38 * (atl.season - 2017) + atl.round AS all_time_round
+    pnt.played
 FROM
     {{ ref ("stg_atletas_scoring") }} AS atl
 LEFT JOIN

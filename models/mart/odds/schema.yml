@@ -3,3 +3,32 @@ version: 2
 models:
   - name: fct_odds
     description: Brasileirão betting odds
+        columns:
+      - name: season
+        description: Season
+        tests:
+          - not_null
+      - name: timestamp
+        description: Match timestamp
+        tests:
+          - not_null
+      - name: club
+        description: Club
+        tests:
+          - not_null
+      - name: opponent
+        description: Opponent
+        tests:
+          - not_null
+      - name: avg_club
+        description: Club average odds
+        tests:
+          - not_null
+      - name: avg_opponent
+        description: Opponent average odds
+        tests:
+          - not_null
+      - name: avg_draw
+        description: Draw average odds
+        tests:
+          - not_null

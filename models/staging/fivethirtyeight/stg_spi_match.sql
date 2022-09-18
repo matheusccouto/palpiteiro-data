@@ -1,7 +1,6 @@
 SELECT
     spi.season AS season,
     spi.league_id AS league_id,
-    spi.league AS league,
     c_home.slug AS home,
     c_away.slug AS away,
     spi.spi1 AS spi_home,

@@ -2,8 +2,6 @@ WITH spi AS (
     SELECT
         season,
         date,
-        league_id,
-        league,
         home AS club,
         away AS opponent,
         spi_home AS spi_club,
