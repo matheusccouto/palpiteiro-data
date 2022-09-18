@@ -6,9 +6,7 @@ WITH scoring AS (
         clb.slug AS club,
         pos.slug AS position,
         sts.slug AS status,
-        atl.pontos_num AS points,
-        atl.preco_num AS price,
-        atl.variacao_num AS variation
+        atl.pontos_num AS points
     FROM
         {{ source("cartola", "atletas") }} AS atl
     LEFT JOIN {{ ref ("dim_position") }} AS pos ON atl.posicao_id = pos.id
@@ -24,11 +22,7 @@ SELECT
     curr.club,
     curr.position,
     curr.points,
-    IF(curr.season >= 2022, curr.status, prev.status) AS status,
-    IF(curr.season >= 2022, curr.price, curr.price - curr.variation) AS price,
-    IF(
-        curr.season >= 2022, curr.variation, COALESCE(prev.variation, 0)
-    ) AS variation
+    IF(curr.season >= 2022, curr.status, prev.status) AS status
 FROM
     scoring AS curr
 LEFT JOIN

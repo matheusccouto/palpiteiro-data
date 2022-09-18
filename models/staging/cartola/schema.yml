@@ -48,10 +48,6 @@ models:
         description: Scored by the player in the match
         tests:
           - not_null
-      - name: price
-        description: Price
-        tests:
-          - not_null
 
   - name: stg_atletas_player
     description: Cartola players

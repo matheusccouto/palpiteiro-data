@@ -6,7 +6,6 @@ SELECT
     c.valid,
     s.position,
     s.status,
-    s.price AS price_cartola,
     s.played,
     s.total_points,
     s.offensive_points,
@@ -39,7 +38,6 @@ SELECT
     c.avg_odds_club,
     c.avg_odds_opponent,
     c.avg_odds_draw,
-    s.price - s.variation AS price_cartola_express,
     COALESCE(
         SUM(
             CAST(s.played AS INT64)

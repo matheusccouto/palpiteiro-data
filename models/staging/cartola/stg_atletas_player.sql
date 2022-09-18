@@ -1,6 +1,8 @@
 SELECT
     atleta_id AS player_id,
     apelido AS nickname,
+    preco_num AS price,
+    variacao_num AS variation,
     COALESCE(
         slug,
         TRANSLATE(

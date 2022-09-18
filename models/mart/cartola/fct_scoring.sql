@@ -57,9 +57,9 @@ point AS (
         round,
         season,
         played,
-        if(played IS TRUE, round(offensive, 1), NULL) AS offensive,
-        if(played IS TRUE, round(defensive, 1), NULL) AS defensive,
-        if(played IS TRUE, round(offensive + defensive, 1), NULL) AS total
+        IF(played IS TRUE, ROUND(offensive, 1), NULL) AS offensive,
+        IF(played IS TRUE, ROUND(defensive, 1), NULL) AS defensive,
+        IF(played IS TRUE, ROUND(offensive + defensive, 1), NULL) AS total
     FROM
         scoring
 )
@@ -72,10 +72,12 @@ SELECT
     pnt.total AS total_points,
     pnt.offensive AS offensive_points,
     pnt.defensive AS defensive_points,
-    atl.price,
-    atl.variation,
     pnt.played,
     38 * (atl.season - 2017) + atl.round AS all_time_round
 FROM
     {{ ref ("stg_atletas_scoring") }} AS atl
-LEFT JOIN point AS pnt ON atl.player_id = pnt.player_id
+LEFT JOIN
+    point AS pnt ON
+        atl.player_id = pnt.player_id
+        AND atl.season = pnt.season
+        AND atl.round = pnt.round
