@@ -66,13 +66,18 @@ point AS (
 
 SELECT
     atl.player_id,
+    atl.season,
+    atl.round,
     atl.club,
     atl.position,
     atl.status,
     pnt.total AS total_points,
     pnt.offensive AS offensive_points,
     pnt.defensive AS defensive_points,
-    pnt.played
+    CASE
+        WHEN atl.season = 2022 THEN COALESCE(pnt.played, FALSE)
+        ELSE COALESCE(pnt.total IS NOT NULL, FALSE) 
+    END AS played
 FROM
     {{ ref ("stg_atletas_scoring") }} AS atl
 LEFT JOIN

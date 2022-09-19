@@ -8,6 +8,18 @@ models:
         description: Player ID
         tests:
           - not_null
+      - name: season
+        description: Season
+        tests:
+          - not_null
+      - name: round
+        description: Round
+        tests:
+          - not_null
+      - name: club
+        description: Club
+        tests:
+          - not_null
       - name: position
         description: Position
         tests:
@@ -33,17 +45,23 @@ models:
       - name: total_points
         description: Points scored the player in the match using most recent rules.
         tests:
-          - not_null
+          - not_null:
+              config:
+                  where: "played IS TRUE"
       - name: offensive_points
         description: Offensive points scored the player in the match using most recent rules.
         tests:
-          - not_null
+          - not_null:
+              config:
+                  where: "played IS TRUE"
       - name: defensive_points
         description: Defensive points scored the player in the match using most recent rules.
         tests:
-          - not_null
+          - not_null:
+              config:
+                  where: "played IS TRUE"
       - name: played
-        descripts: Indicates if the player played in the match.
+        description: Indicates if the player played in the match.
         tests:
           - not_null
           - accepted_values:

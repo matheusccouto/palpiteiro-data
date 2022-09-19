@@ -1,7 +1,8 @@
 WITH club AS (
     SELECT
         s.club,
-        s.all_time_round,
+        s.season,
+        s.round,
         ANY_VALUE(m.opponent) AS opponent,
         ANY_VALUE(m.home) AS home,
         ANY_VALUE(m.timestamp) AS timestamp, -- noqa: L029
@@ -13,14 +14,15 @@ WITH club AS (
         {{ ref("fct_scoring") }} AS s
     INNER JOIN
         {{ ref ("fct_match") }} AS m ON
-            s.all_time_round = m.all_time_round AND s.club = m.club
+            s.club = m.club AND s.season = m.season AND s.round = m.round
     GROUP BY
-        s.club, s.all_time_round
+        s.club, s.season, s.round
 )
 
 SELECT
     c.club,
-    c.all_time_round,
+    c.season,
+    c.round,
     c.timestamp,
     c.home,
     c.opponent,
@@ -48,87 +50,68 @@ SELECT
             CAST(c.valid AS INT64)
         ) OVER (
             PARTITION BY
-                c.club
-            ORDER BY c.all_time_round ROWS BETWEEN 5 PRECEDING AND 1 PRECEDING
-        ),
-        0
-    ) AS valid_club_last_5,
-    COALESCE(
-        SUM(
-            CAST(c.valid AS INT64)
-        ) OVER (
-            PARTITION BY
                 c.club, c.home
-            ORDER BY c.all_time_round ROWS BETWEEN 5 PRECEDING AND 1 PRECEDING
+            ORDER BY c.season, c.round ROWS BETWEEN 19 PRECEDING AND 1 PRECEDING
         ),
         0
-    ) AS valid_club_last_5_at,
-    COALESCE(
-        SUM(
-            CAST(o.valid AS INT64)
-        ) OVER (
-            PARTITION BY
-                o.club
-            ORDER BY o.all_time_round ROWS BETWEEN 5 PRECEDING AND 1 PRECEDING
-        ),
-        0
-    ) AS valid_opponent_last_5,
+    ) AS valid_club_last_19,
     COALESCE(
         SUM(
             CAST(o.valid AS INT64)
         ) OVER (
             PARTITION BY
                 o.club, o.home
-            ORDER BY o.all_time_round ROWS BETWEEN 5 PRECEDING AND 1 PRECEDING
+            ORDER BY o.season, o.round ROWS BETWEEN 19 PRECEDING AND 1 PRECEDING
         ),
         0
-    ) AS valid_opponent_last_5_at,
+    ) AS valid_opponent_last_19,
     AVG(
         c.total_points
     ) OVER (
         PARTITION BY
             c.club, c.home
-        ORDER BY c.all_time_round ROWS BETWEEN 5 PRECEDING AND 1 PRECEDING
-    ) AS total_points_club_last_5_at,
+        ORDER BY c.season, c.round ROWS BETWEEN 19 PRECEDING AND 1 PRECEDING
+    ) AS total_points_club_last_19,
     AVG(
         c.offensive_points
     ) OVER (
         PARTITION BY
             c.club, c.home
-        ORDER BY c.all_time_round ROWS BETWEEN 5 PRECEDING AND 1 PRECEDING
-    ) AS offensive_points_club_last_5_at,
+        ORDER BY c.season, c.round ROWS BETWEEN 19 PRECEDING AND 1 PRECEDING
+    ) AS offensive_points_club_last_19,
     AVG(
         c.defensive_points
     ) OVER (
         PARTITION BY
             c.club, c.home
-        ORDER BY c.all_time_round ROWS BETWEEN 5 PRECEDING AND 1 PRECEDING
-    ) AS defensive_points_club_last_5_at,
+        ORDER BY c.season, c.round ROWS BETWEEN 19 PRECEDING AND 1 PRECEDING
+    ) AS defensive_points_club_last_19,
     AVG(
         o.total_points
     ) OVER (
         PARTITION BY
             o.club, o.home
-        ORDER BY o.all_time_round ROWS BETWEEN 5 PRECEDING AND 1 PRECEDING
-    ) AS total_allowed_points_opponent_last_5_at,
+        ORDER BY o.season, o.round ROWS BETWEEN 19 PRECEDING AND 1 PRECEDING
+    ) AS total_allowed_points_opponent_last_19,
     AVG(
         o.offensive_points
     ) OVER (
         PARTITION BY
             o.club, o.home
-        ORDER BY o.all_time_round ROWS BETWEEN 5 PRECEDING AND 1 PRECEDING
-    ) AS offensive_allowed_points_opponent_last_5_at,
+        ORDER BY o.season, o.round ROWS BETWEEN 19 PRECEDING AND 1 PRECEDING
+    ) AS offensive_allowed_points_opponent_last_19,
     AVG(
         o.defensive_points
     ) OVER (
         PARTITION BY
             o.club, o.home
-        ORDER BY o.all_time_round ROWS BETWEEN 5 PRECEDING AND 1 PRECEDING
-    ) AS defensive_allowed_points_opponent_last_5_at
+        ORDER BY o.season, o.round ROWS BETWEEN 19 PRECEDING AND 1 PRECEDING
+    ) AS defensive_allowed_points_opponent_last_19
 FROM
     club AS c
 INNER JOIN
-    club AS o ON c.opponent = o.club AND c.all_time_round = o.all_time_round
+    club AS o ON
+        c.opponent = o.club AND c.season = o.season AND c.round = o.round
 INNER JOIN
     {{ ref ("fct_spi") }} AS s ON
         EXTRACT(

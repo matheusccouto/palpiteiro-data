@@ -1,9 +1,9 @@
 version: 2
 
 models:
-  - name: fct_odds
+  - name: fct_h2h
     description: Brasileirão betting odds
-        columns:
+    columns:
       - name: season
         description: Season
         tests:
