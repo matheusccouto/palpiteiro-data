@@ -6,8 +6,8 @@ SELECT
     clb.slug AS club,
     clb.badge60 AS club_badge,
     fct.position,
-    dim.price_cartola,
-    dim.price_cartola_express,
+    fct.price_cartola,
+    fct.price_cartola_express,
     {{ target.dataset }}.PREDICT_POINTS(TO_JSON(fct)) AS points, -- noqa: L027
     CURRENT_TIMESTAMP AS materialized_at
 FROM

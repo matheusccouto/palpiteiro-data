@@ -77,7 +77,9 @@ SELECT
     CASE
         WHEN atl.season = 2022 THEN COALESCE(pnt.played, FALSE)
         ELSE COALESCE(pnt.total IS NOT NULL, FALSE) 
-    END AS played
+    END AS played,
+    price,
+    variation
 FROM
     {{ ref ("stg_atletas_scoring") }} AS atl
 LEFT JOIN

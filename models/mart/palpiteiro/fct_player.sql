@@ -7,6 +7,8 @@ SELECT
     c.valid,
     s.position,
     s.status,
+    s.price AS price_cartola,
+    s.price - s.variation AS price_cartola_express,
     s.played,
     s.total_points,
     s.offensive_points,
