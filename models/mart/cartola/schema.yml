@@ -32,6 +32,19 @@ models:
                 - midfielder
                 - forward
                 - coach
+      - name: position_id
+        description: Position ID
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - 1
+                - 2
+                - 3
+                - 4
+                - 5
+                - 6
+              quote: false
       - name: status
         description: Status for the match
         tests:

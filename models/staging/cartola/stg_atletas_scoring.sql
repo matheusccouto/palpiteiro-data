@@ -5,6 +5,7 @@ WITH scoring AS (
         atl.temporada_id AS season,
         clb.slug AS club,
         pos.slug AS position,
+        pos.id AS position_id,
         sts.slug AS status,
         atl.pontos_num AS points,
         atl.preco_num AS price,
@@ -23,10 +24,11 @@ SELECT
     curr.season,
     curr.club,
     curr.position,
+    curr.position_id,
     curr.points,
-    IF(curr.season >= 2022, curr.status, prev.status) AS status,
     curr.price,
     curr.variation,
+    IF(curr.season >= 2022, curr.status, prev.status) AS status
 FROM
     scoring AS curr
 LEFT JOIN
