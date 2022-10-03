@@ -1,0 +1,32 @@
+name: Freshness
+on:
+  schedule:
+    - cron:  '0 12 * * *'
+
+jobs:
+  dbt:
+    runs-on: ubuntu-latest
+    environment: ${{ github.REF_NAME }}
+
+    env:
+      DBT_PROFILES_DIR: "."
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Authenticate GCP
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: ${{ secrets.GCP_KEYFILE }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+
+      - name: Install Requirements
+        run: pip install dbt-bigquery
+
+      - name: Freshness
+        run: dbt source freshness
