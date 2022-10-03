@@ -1,4 +1,5 @@
-name: dbt
+name: Build
+
 on:
   push:
     branches:
