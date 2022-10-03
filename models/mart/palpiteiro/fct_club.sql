@@ -106,7 +106,69 @@ SELECT
         PARTITION BY
             o.club, o.home
         ORDER BY o.season, o.round ROWS BETWEEN 19 PRECEDING AND 1 PRECEDING
-    ) AS defensive_allowed_points_opponent_last_19
+    ) AS defensive_allowed_points_opponent_last_19,
+    COALESCE(
+        SUM(
+            CAST(c.valid AS INT64)
+        ) OVER (
+            PARTITION BY
+                c.club, c.home
+            ORDER BY c.season, c.round ROWS BETWEEN 5 PRECEDING AND 1 PRECEDING
+        ),
+        0
+    ) AS valid_club_last_5,
+    COALESCE(
+        SUM(
+            CAST(o.valid AS INT64)
+        ) OVER (
+            PARTITION BY
+                o.club, o.home
+            ORDER BY o.season, o.round ROWS BETWEEN 5 PRECEDING AND 1 PRECEDING
+        ),
+        0
+    ) AS valid_opponent_last_5,
+    AVG(
+        c.total_points
+    ) OVER (
+        PARTITION BY
+            c.club, c.home
+        ORDER BY c.season, c.round ROWS BETWEEN 5 PRECEDING AND 1 PRECEDING
+    ) AS total_points_club_last_5,
+    AVG(
+        c.offensive_points
+    ) OVER (
+        PARTITION BY
+            c.club, c.home
+        ORDER BY c.season, c.round ROWS BETWEEN 5 PRECEDING AND 1 PRECEDING
+    ) AS offensive_points_club_last_5,
+    AVG(
+        c.defensive_points
+    ) OVER (
+        PARTITION BY
+            c.club, c.home
+        ORDER BY c.season, c.round ROWS BETWEEN 5 PRECEDING AND 1 PRECEDING
+    ) AS defensive_points_club_last_5,
+    AVG(
+        o.total_points
+    ) OVER (
+        PARTITION BY
+            o.club, o.home
+        ORDER BY o.season, o.round ROWS BETWEEN 5 PRECEDING AND 1 PRECEDING
+    ) AS total_allowed_points_opponent_last_5,
+    AVG(
+        o.offensive_points
+    ) OVER (
+        PARTITION BY
+            o.club, o.home
+        ORDER BY o.season, o.round ROWS BETWEEN 5 PRECEDING AND 1 PRECEDING
+    ) AS offensive_allowed_points_opponent_last_5,
+    AVG(
+        o.defensive_points
+    ) OVER (
+        PARTITION BY
+            o.club, o.home
+        ORDER BY o.season, o.round ROWS BETWEEN 5 PRECEDING AND 1 PRECEDING
+    ) AS defensive_allowed_points_opponent_last_5
 FROM
     club AS c
 INNER JOIN

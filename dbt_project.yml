@@ -12,6 +12,7 @@ target-path: "target"
 clean-targets:
   - "target"
   - "dbt_packages"
+
 seeds:
   palpiteiro:
     cartola:
@@ -20,6 +21,7 @@ seeds:
       +schema: express
     palpiteiro:
       +schema: palpiteiro
+
 models:
   palpiteiro:
     staging:

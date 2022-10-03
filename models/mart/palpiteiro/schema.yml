@@ -114,6 +114,26 @@ models:
         description: Opponent's average allowed offensive points in the last 19 matches as home / visitor
       - name: defensive_allowed_points_opponent_last_19
         description: Opponent's average allowed defensive points in the last 19 matches as home / visitor
+      - name: valid_club_last_5
+        description: Amount of club's valid matches in the last 5 matches as home / visitor
+        tests:
+          - not_null
+      - name: valid_opponent_last_5
+        description: Amount of opponent's valid matches in the last 5 matches as home / visitor
+        tests:
+          - not_null
+      - name: total_points_club_last_5
+        description: Club's average total points in the last 5 matches as home / visitor
+      - name: offensive_points_club_last_5
+        description: Club's average offensive points in the last 5 matches as home / visitor
+      - name: defensive_points_club_last_5
+        description: Club's average defensive points in the last 5 matches as home / visitor
+      - name: total_allowed_points_opponent_last_5
+        description: Opponent's average allowed total points in the last 5 matches as home / visitor
+      - name: offensive_allowed_points_opponent_last_5
+        description: Opponent's average allowed offensive points in the last 5 matches as home / visitor
+      - name: defensive_allowed_points_opponent_last_5
+        description: Opponent's average allowed defensive points in the last 5 matches as home / visitor
 
   - name: fct_player
     description: Players data for each round
@@ -247,6 +267,26 @@ models:
         description: Opponent's average allowed offensive points in the last 19 matches as home / visitor
       - name: defensive_allowed_points_opponent_last_19
         description: Opponent's average allowed defensive points in the last 19 matches as home / visitor
+      - name: valid_club_last_5
+        description: Amount of club's valid matches in the last 5 matches as home / visitor
+        tests:
+          - not_null
+      - name: valid_opponent_last_5
+        description: Amount of opponent's valid matches in the last 5 matches as home / visitor
+        tests:
+          - not_null
+      - name: total_points_club_last_5
+        description: Club's average total points in the last 5 matches as home / visitor
+      - name: offensive_points_club_last_5
+        description: Club's average offensive points in the last 5 matches as home / visitor
+      - name: defensive_points_club_last_5
+        description: Club's average defensive points in the last 5 matches as home / visitor
+      - name: total_allowed_points_opponent_last_5
+        description: Opponent's average allowed total points in the last 5 matches as home / visitor
+      - name: offensive_allowed_points_opponent_last_5
+        description: Opponent's average allowed offensive points in the last 5 matches as home / visitor
+      - name: defensive_allowed_points_opponent_last_5
+        description: Opponent's average allowed defensive points in the last 5 matches as home / visitor
       - name: avg_odds_club
         description: Average club's win odds
         tests:
@@ -269,6 +309,16 @@ models:
         description: Player's average offensive points in the last 19 matches as home / visitor
       - name: defensive_points_last_19
         description: Player's average defensive points in the last 19 matches as home / visitor
+      - name: played_last_5
+        description: Amount of times that the player played in the last 5 matches as home / visitor
+        tests:
+          - not_null
+      - name: total_points_last_5
+        description: Player's average total points in the last 5 matches as home / visitor
+      - name: offensive_points_last_5
+        description: Player's average offensive points in the last 5 matches as home / visitor
+      - name: defensive_points_last_5
+        description: Player's average defensive points in the last 5 matches as home / visitor
 
   - name: dim_player_last
     description: Players data for the latest round
