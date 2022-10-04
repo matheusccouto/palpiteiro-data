@@ -1,5 +1,5 @@
 SELECT
-    fct.player_id,
+    fct.player_id AS id,
     fct.timestamp,
     dim.short_nickname AS name, -- noqa: L029
     dim.photo,
