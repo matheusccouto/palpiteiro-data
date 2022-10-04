@@ -39,10 +39,10 @@ jobs:
         run: |
           dbt docs generate
           mkdir docs
-          cp dbt/target/catalog.json docs/catalog.json
-          cp dbt/target/manifest.json docs/manifest.json
-          cp dbt/target/run_results.json docs/run_results.json
-          cp dbt/target/index.html docs/index.html
+          cp target/catalog.json docs/catalog.json
+          cp target/manifest.json docs/manifest.json
+          cp target/run_results.json docs/run_results.json
+          cp target/index.html docs/index.html
 
       - name: Deploy Github Pages
         if: ${{ github.REF_NAME == 'main' }}
