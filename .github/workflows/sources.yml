@@ -6,8 +6,15 @@ on:
 
 jobs:
   dbt:
+    strategy:
+      fail-fast: false
+      matrix:
+        env:
+          - main
+          - dev
+
     runs-on: ubuntu-latest
-    environment: ${{ github.REF_NAME }}
+    environment: ${{ matrix.env }}
 
     env:
       DBT_PROFILES_DIR: "."
