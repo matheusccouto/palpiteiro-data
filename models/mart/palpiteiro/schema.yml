@@ -1,0 +1,378 @@
+version: 2
+
+models:
+  - name: fct_club
+    description: Clubs data for each round
+    columns:
+      - name: club
+        description: Club slug
+        tests:
+          - not_null
+      - name: season
+        description: Season
+        tests:
+          - not_null
+      - name: round
+        description: Round
+        tests:
+          - not_null
+      - name: timestamp
+        description: Match starting timestamp
+        tests:
+          - not_null
+      - name: home
+        description: Indicates if it is a home match
+        tests:
+          - not_null
+          - accepted_values:
+              values: [true, false]
+              quote: false
+      - name: opponent
+        description: Opponent club slug
+        tests:
+          - not_null
+      - name: valid
+        description: Match is valid for Cartola
+        tests:
+          - not_null
+          - accepted_values:
+              values: [true, false]
+              quote: false
+      - name: spi_club
+        description: Club's Soccer Power Index
+        tests:
+           - not_null
+      - name: spi_opponent
+        description: Opponent's Soccer Power Index
+        tests:
+           - not_null
+      - name: prob_club
+        description: Club's win probability
+        tests:
+          - not_null
+      - name: prob_opponent
+        description: Opponent's win probability
+        tests:
+          - not_null
+      - name: prob_tie
+        description: Draw probability
+        tests:
+          - not_null
+      - name: importance_club
+        description: Club's importance
+      - name: importance_opponent
+        description: Opponent's importance
+      - name: proj_score_club
+        description: Club's projected score
+        tests:
+          - not_null
+      - name: proj_score_opponent
+        description: Opponent's projected score
+        tests:
+          - not_null
+      - name: total_points_club
+        description: Club's total points for this round
+      - name: offensive_points_club
+        description: Club's offensive points for this round
+      - name: defensive_points_club
+        description: Club's defensive points for this round
+      - name: total_points_opponent
+        description: Opponent's total points for this round
+      - name: offensive_points_opponent
+        description: Opponent's offensive points for this round
+      - name: defensive_points_opponent
+        description: Opponent's defensive points for this round
+      - name: avg_odds_club
+        description: Average club's win odds
+        tests:
+          - not_null
+      - name: avg_odds_opponent
+        description: Average opponent's win odds
+        tests:
+          - not_null
+      - name: avg_odds_draw
+        description: Average draw odds
+        tests:
+          - not_null
+      - name: valid_club_last_19
+        description: Amount of club's valid matches in the last 19 matches as home / visitor
+        tests:
+          - not_null
+      - name: valid_opponent_last_19
+        description: Amount of opponent's valid matches in the last 19 matches as home / visitor
+        tests:
+          - not_null
+      - name: total_points_club_last_19
+        description: Club's average total points in the last 19 matches as home / visitor
+      - name: offensive_points_club_last_19
+        description: Club's average offensive points in the last 19 matches as home / visitor
+      - name: defensive_points_club_last_19
+        description: Club's average defensive points in the last 19 matches as home / visitor
+      - name: total_allowed_points_opponent_last_19
+        description: Opponent's average allowed total points in the last 19 matches as home / visitor
+      - name: offensive_allowed_points_opponent_last_19
+        description: Opponent's average allowed offensive points in the last 19 matches as home / visitor
+      - name: defensive_allowed_points_opponent_last_19
+        description: Opponent's average allowed defensive points in the last 19 matches as home / visitor
+      - name: valid_club_last_5
+        description: Amount of club's valid matches in the last 5 matches as home / visitor
+        tests:
+          - not_null
+      - name: valid_opponent_last_5
+        description: Amount of opponent's valid matches in the last 5 matches as home / visitor
+        tests:
+          - not_null
+      - name: total_points_club_last_5
+        description: Club's average total points in the last 5 matches as home / visitor
+      - name: offensive_points_club_last_5
+        description: Club's average offensive points in the last 5 matches as home / visitor
+      - name: defensive_points_club_last_5
+        description: Club's average defensive points in the last 5 matches as home / visitor
+      - name: total_allowed_points_opponent_last_5
+        description: Opponent's average allowed total points in the last 5 matches as home / visitor
+      - name: offensive_allowed_points_opponent_last_5
+        description: Opponent's average allowed offensive points in the last 5 matches as home / visitor
+      - name: defensive_allowed_points_opponent_last_5
+        description: Opponent's average allowed defensive points in the last 5 matches as home / visitor
+
+  - name: fct_player
+    description: Players data for each round
+    columns:
+      - name: player_id
+        description: Player ID
+        tests:
+          - not_null
+      - name: season
+        description: Season
+        tests:
+          - not_null
+      - name: round
+        description: Round
+        tests:
+          - not_null
+      - name: timestamp
+        description: Match starting timestamp
+        tests:
+          - not_null
+      - name: club
+        description: Club's slug
+        tests:
+          - not_null
+      - name: valid
+        description: Match is valid for Cartola
+        tests:
+          - accepted_values:
+              values: [true, false]
+              quote: false
+      - name: price_cartola
+        description: Cartola price
+        tests:
+          - not_null
+      - name: price_cartola_express
+        description: Cartola Express price
+        tests:
+          - not_null
+      - name: position
+        description: Position
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - goalkeeper
+                - fullback
+                - defender
+                - midfielder
+                - forward
+                - coach
+      - name: position_id
+        description: Position ID
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - 1
+                - 2
+                - 3
+                - 4
+                - 5
+                - 6
+              quote: false
+      - name: status
+        description: Status for the match
+        tests:
+          - accepted_values:
+              values:
+                - doubt
+                - suspended
+                - injured
+                - "null"
+                - expected
+      - name: played
+        description: Indicates if the player played in this round
+      - name: total_points
+        description: Total points for this round
+      - name: offensive_points
+        description: Offensive points for this round
+      - name: defensive_points
+        description: Defensive points for this round
+      - name: spi_club
+        description: Club's soccer power index
+        tests:
+          - not_null
+      - name: spi_opponent
+        description: Opponent's soccer power index
+        tests:
+          - not_null
+      - name: prob_club
+        description: Club's win probability
+        tests:
+          - not_null
+      - name: prob_opponent
+        description: Opponent's win probability
+        tests:
+          - not_null
+      - name: prob_tie
+        description: Tie probability
+        tests:
+          - not_null
+      - name: importance_club
+        description: Club's match importance
+      - name: importance_opponent
+        description: Opponent's match importance
+      - name: proj_score_club
+        description: Club's projected score
+        tests:
+          - not_null
+      - name: proj_score_opponent
+        description: Opponent's projected score
+        tests:
+          - not_null
+      - name: valid_club_last_19
+        description: Amount of club's valid matches in the last 19 matches as home / visitor
+        tests:
+          - not_null
+      - name: valid_opponent_last_19
+        description: Amount of opponent's valid matches in the last 19 matches as home / visitor
+        tests:
+          - not_null
+      - name: total_points_club_last_19
+        description: Club's average total points in the last 19 matches as home / visitor
+      - name: offensive_points_club_last_19
+        description: Club's average offensive points in the last 19 matches as home / visitor
+      - name: defensive_points_club_last_19
+        description: Club's average defensive points in the last 19 matches as home / visitor
+      - name: total_allowed_points_opponent_last_19
+        description: Opponent's average allowed total points in the last 19 matches as home / visitor
+      - name: offensive_allowed_points_opponent_last_19
+        description: Opponent's average allowed offensive points in the last 19 matches as home / visitor
+      - name: defensive_allowed_points_opponent_last_19
+        description: Opponent's average allowed defensive points in the last 19 matches as home / visitor
+      - name: valid_club_last_5
+        description: Amount of club's valid matches in the last 5 matches as home / visitor
+        tests:
+          - not_null
+      - name: valid_opponent_last_5
+        description: Amount of opponent's valid matches in the last 5 matches as home / visitor
+        tests:
+          - not_null
+      - name: total_points_club_last_5
+        description: Club's average total points in the last 5 matches as home / visitor
+      - name: offensive_points_club_last_5
+        description: Club's average offensive points in the last 5 matches as home / visitor
+      - name: defensive_points_club_last_5
+        description: Club's average defensive points in the last 5 matches as home / visitor
+      - name: total_allowed_points_opponent_last_5
+        description: Opponent's average allowed total points in the last 5 matches as home / visitor
+      - name: offensive_allowed_points_opponent_last_5
+        description: Opponent's average allowed offensive points in the last 5 matches as home / visitor
+      - name: defensive_allowed_points_opponent_last_5
+        description: Opponent's average allowed defensive points in the last 5 matches as home / visitor
+      - name: avg_odds_club
+        description: Average club's win odds
+        tests:
+          - not_null
+      - name: avg_odds_opponent
+        description: Average opponent's win odds
+        tests:
+          - not_null
+      - name: avg_odds_draw
+        description: Average draw odds
+        tests:
+          - not_null
+      - name: played_last_19
+        description: Amount of times that the player played in the last 19 matches as home / visitor
+        tests:
+          - not_null
+      - name: total_points_last_19
+        description: Player's average total points in the last 19 matches as home / visitor
+      - name: offensive_points_last_19
+        description: Player's average offensive points in the last 19 matches as home / visitor
+      - name: defensive_points_last_19
+        description: Player's average defensive points in the last 19 matches as home / visitor
+      - name: played_last_5
+        description: Amount of times that the player played in the last 5 matches as home / visitor
+        tests:
+          - not_null
+      - name: total_points_last_5
+        description: Player's average total points in the last 5 matches as home / visitor
+      - name: offensive_points_last_5
+        description: Player's average offensive points in the last 5 matches as home / visitor
+      - name: defensive_points_last_5
+        description: Player's average defensive points in the last 5 matches as home / visitor
+
+  - name: dim_player_last
+    description: Players data for the latest round
+    columns:
+      - name: id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+      - name: timestamp
+        description: Match starting timestamp
+        tests:
+          - not_null
+      - name: name
+        description: Player name
+        tests:
+          - not_null
+      - name: photo
+        description: Player photo
+        tests:
+          - not_null
+      - name: club
+        description: Player club slug
+        tests:
+          - not_null
+      - name: club_badge
+        description: Player club badge
+        tests:
+          - not_null
+      - name: position
+        description: Position
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - goalkeeper
+                - fullback
+                - defender
+                - midfielder
+                - forward
+                - coach
+      - name: price_cartola
+        description: Cartola price
+        tests:
+          - not_null
+      - name: price_cartola_express
+        description: Cartola Express price
+        tests:
+          - not_null
+      - name: points
+        description: Predicted total points
+        tests:
+          - not_null
+      - name: materialized_at
+        description: Materialization timestamp
+        tests:
+          - not_null

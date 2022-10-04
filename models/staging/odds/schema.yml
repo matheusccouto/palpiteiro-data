@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: stg_brasileirao_h2h
+    description: Brasileirão head-to-head odds.
+    columns:
+      - name: season
+        description: Season
+        tests:
+          - not_null
+      - name: timestamp
+        description: Match timestamp
+        tests:
+          - not_null
+      - name: home
+        description: Home team
+        tests:
+          - not_null
+      - name: away
+        description: Away team
+        tests:
+          - not_null
+      - name: avg_home
+        description: Home team average odds
+      - name: avg_away
+        description: Away team average odds
+      - name: avg_draw
+        description: Draw average odds

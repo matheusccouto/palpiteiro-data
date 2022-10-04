@@ -1,0 +1,48 @@
+name: "palpiteiro"
+version: "1.0.0"
+config-version: 2
+profile: "palpiteiro"
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+seeds:
+  palpiteiro:
+    cartola:
+      +schema: cartola
+    express:
+      +schema: express
+    palpiteiro:
+      +schema: palpiteiro
+
+models:
+  palpiteiro:
+    staging:
+      +materialized: view
+      cartola:
+        schema: cartola
+      fivethirtyeight:
+        schema: fivethirtyeight
+      odds:
+        schema: odds
+    mart:
+      +materialized: view
+      cartola:
+        schema: cartola
+      fivethirtyeight:
+        schema: fivethirtyeight
+      odds:
+        schema: odds
+      palpiteiro:
+        schema: palpiteiro
+        dim_player_last:
+          materialized: table
+on-run-start:
+  - '{{ create_udfs() }}'
