@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+        with:
+          ref: ${{ matrix.env }}
 
       - name: Authenticate GCP
         uses: google-github-actions/auth@v0
