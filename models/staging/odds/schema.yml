@@ -22,13 +22,7 @@ models:
           - not_null
       - name: avg_home
         description: Home team average odds
-        tests:
-          - not_null
       - name: avg_away
         description: Away team average odds
-        tests:
-          - not_null
       - name: avg_draw
         description: Draw average odds
-        tests:
-          - not_null

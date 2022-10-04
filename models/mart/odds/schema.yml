@@ -22,13 +22,7 @@ models:
           - not_null
       - name: avg_club
         description: Club average odds
-        tests:
-          - not_null
       - name: avg_opponent
         description: Opponent average odds
-        tests:
-          - not_null
       - name: avg_draw
         description: Draw average odds
-        tests:
-          - not_null
