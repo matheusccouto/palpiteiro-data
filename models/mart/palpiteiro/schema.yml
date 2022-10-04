@@ -323,7 +323,7 @@ models:
   - name: dim_player_last
     description: Players data for the latest round
     columns:
-      - name: player_id
+      - name: id
         description: Primary key
         tests:
           - unique
