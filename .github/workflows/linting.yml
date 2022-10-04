@@ -27,3 +27,5 @@ jobs:
 
       - name: Lint
         run: sqlfluff lint
+        env:
+          DBT_PROFILES_DIR: "."
