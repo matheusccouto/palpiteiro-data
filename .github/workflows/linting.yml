@@ -23,7 +23,7 @@ jobs:
       - name: Install requirements
         run: |
           pip install --upgrade pip wheel
-          pip install sqlfluff sqlfluff-templater-dbt
+          pip install sqlfluff dbt-bigquery sqlfluff-templater-dbt
 
       - name: Lint
         run: sqlfluff lint
