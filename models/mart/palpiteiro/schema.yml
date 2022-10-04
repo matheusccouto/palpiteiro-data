@@ -376,3 +376,25 @@ models:
         description: Materialization timestamp
         tests:
           - not_null
+
+
+exposures:
+  - name: draft_api
+    type: application
+    url: https://github.com/matheusccouto/palpiteiro-draft
+    description: Draft best players for current round given a budget.
+    depends_on:
+      - ref('dim_player_last')
+    owner:
+      name: Matheus Couto
+      email: matheusccouto@gmail.com
+
+  - name: points_estimator
+    type: ml
+    url: https://github.com/matheusccouto/palpiteiro-predict
+    description: Estimate how many points a player will score in the next round.
+    depends_on:
+      - ref('fct_player')
+    owner:
+      name: Matheus Couto
+      email: matheusccouto@gmail.com

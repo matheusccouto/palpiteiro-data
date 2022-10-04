@@ -40,4 +40,4 @@ jobs:
         run: pip install dbt-bigquery
 
       - name: Build
-        run: dbt run --select dim_player_last
+        run: dbt run --select +dim_player_last
