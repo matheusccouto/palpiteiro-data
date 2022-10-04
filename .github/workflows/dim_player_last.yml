@@ -3,6 +3,7 @@ name: Materialize dim_player_last
 on:
   schedule:
     - cron:  '5 */2 * * *'
+  workflow_dispatch:
 
 jobs:
   dbt:
