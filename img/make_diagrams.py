@@ -36,13 +36,20 @@ with Diagram(
 
 
 with Diagram(
-    "\nSchedule",
-    filename=os.path.join(THIS_DIR, "schedule"),
+    "\nFreshness",
+    filename=os.path.join(THIS_DIR, "freshness"),
+    show=False,
+    curvestyle="curved",
+):
+    dbt_freshness = Custom("dbt source freshness", os.path.join(ICONS_DIR, "dbt.png"))
+    GithubActions("every day") >> dbt_freshness
+
+
+with Diagram(
+    "\nMaterialization",
+    filename=os.path.join(THIS_DIR, "materialization"),
     show=False,
     curvestyle="curved",
 ):
     dbt_run = Custom("dbt run --select +dim_player_last", os.path.join(ICONS_DIR, "dbt.png"))
-    dbt_freshness = Custom("dbt source freshness", os.path.join(ICONS_DIR, "dbt.png"))
-
     GithubActions("every hour") >> dbt_run
-    GithubActions("every day") >> dbt_freshness
