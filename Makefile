@@ -4,6 +4,3 @@ build: pip
 	pip install -r requirements.txt -r requirements-dev.txt
 pip:
 	pip install --upgrade pip wheel
-diagrams: pip
-	sudo apt install graphviz -y
-	pip install diagrams
