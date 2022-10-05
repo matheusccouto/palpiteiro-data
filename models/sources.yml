@@ -42,4 +42,4 @@ sources:
       - name: competitions
       - name: games
       - name: player_valuations
-      - name: player
+      - name: players
