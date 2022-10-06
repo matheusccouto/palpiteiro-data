@@ -8,11 +8,6 @@ Data models for the fantasy soccer app.
 [![freshness-main](https://github.com/matheusccouto/palpiteiro-data/actions/workflows/sources.yml/badge.svg)](https://github.com/matheusccouto/palpiteiro-data/actions/workflows/sources.yml)
 [![Materialize dim_player_last](https://github.com/matheusccouto/palpiteiro-data/actions/workflows/dim_player_last.yml/badge.svg)](https://github.com/matheusccouto/palpiteiro-data/actions/workflows/dim_player_last.yml)
 
-
-
-
-
-
 ### Data Warehouse
 The data warehouse is Google Cloud Big Query and it is built with DBT. [Read the docs.](https://matheusccouto.github.io/palpiteiro-data)
 
