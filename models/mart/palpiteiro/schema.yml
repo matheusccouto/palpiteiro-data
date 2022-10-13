@@ -321,6 +321,8 @@ models:
         description: Player's average defensive points in the last 5 matches as home / visitor
       - name: drafts
         description: Number of users that drafted this player to their team
+      - name: drafts_norm
+        description: Number of drafts related to the top 20 sum.
 
   - name: dim_player_last
     description: Players data for the latest round
