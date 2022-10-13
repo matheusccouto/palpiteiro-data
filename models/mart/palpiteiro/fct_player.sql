@@ -41,6 +41,8 @@ SELECT
     c.avg_odds_club,
     c.avg_odds_opponent,
     c.avg_odds_draw,
+    p.drafts,
+    p.drafts_norm,
     s.price - s.variation AS price_cartola_express,
     COALESCE(
         SUM(
@@ -110,3 +112,6 @@ FROM
 INNER JOIN
     {{ ref ("fct_club") }} AS c ON
         s.club = c.club AND s.season = c.season AND s.round = c.round
+LEFT JOIN
+    {{ ref ("fct_popular") }} AS p ON
+        s.player_id = p.player_id AND s.season = p.season AND s.round = p.round

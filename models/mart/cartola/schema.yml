@@ -148,3 +148,28 @@ models:
           - not_null
       - name: photo
         description: Photo
+
+  - name: fct_popular
+    description: 20 most popular players on Cartola for each round.
+    columns:
+      - name: player_id
+        description: Player ID
+        tests:
+          - not_null
+      - name: season
+        description: Season
+        tests:
+          - not_null
+      - name: round
+        description: Round
+        tests:
+          - not_null
+      - name: drafts
+        description: Number of users that drafted this player to their team
+        tests:
+          - not_null
+      - name: drafts_norm
+        description: Number of drafts related to the top 20 sum.
+        tests:
+          - not_null
+

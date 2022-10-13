@@ -247,3 +247,23 @@ models:
         description: Penalty save in this match
         tests:
           - not_null
+
+  - name: stg_destaque_popular.sql
+    description: 20 most popular players on Cartola for each round.
+    columns:
+      - name: player_id
+        description: Player ID
+        tests:
+          - not_null
+      - name: season
+        description: Season
+        tests:
+          - not_null
+      - name: round
+        description: Round
+        tests:
+          - not_null
+      - name: drafts
+        description: Number of users that drafted this player to their team
+        tests:
+          - not_null
