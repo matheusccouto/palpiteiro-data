@@ -11,6 +11,8 @@ sources:
       - name: atletas
       - name: partidas
       - name: pontuados
+      - name: selecao
+      - name: destaques
 
   - name: fivethirtyeight
     freshness:
