@@ -169,7 +169,7 @@ models:
         tests:
           - not_null
       - name: drafts_norm
-        description: Number of drafts related to the top 20 sum.
+        description: Number of drafts related to the top 20 max.
         tests:
           - not_null
 
