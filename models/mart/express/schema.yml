@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: fct_squad
+    description: Most popular performance on Cartola Express
+    columns:
+      - name: season
+        description: season
+        tests:
+          - not_null
+      - name: round
+        description: round
+        tests:
+          - not_null
+      - name: points
+        description: Amount of points that would have scored on Cartola express
+        tests:
+          - not_null
