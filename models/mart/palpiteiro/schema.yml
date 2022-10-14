@@ -215,6 +215,8 @@ models:
         description: Offensive points for this round
       - name: defensive_points
         description: Defensive points for this round
+      - name: tier
+        description: Total points tier this round
       - name: spi_club
         description: Club's soccer power index
         tests:

@@ -44,6 +44,7 @@ SELECT
     p.drafts,
     p.drafts_norm,
     s.price - s.variation AS price_cartola_express,
+    NTILE(10) OVER (PARTITION BY season, round ORDER BY total_points ASC) AS tier,
     COALESCE(
         SUM(
             CAST(s.played AS INT64)
