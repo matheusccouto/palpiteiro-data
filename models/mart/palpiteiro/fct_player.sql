@@ -10,6 +10,9 @@ WITH bins AS (
         ) - 1 AS tier
     FROM
         {{ ref ("fct_scoring") }}
+    WHERE
+        status = 'expected'
+        AND played IS TRUE
 ),
 
 tiers AS (
@@ -17,8 +20,8 @@ tiers AS (
         season,
         round,
         tier,
-        ROUND(MIN(total_points), 1) AS lower_bound,
-        ROUND(MAX(total_points), 1) + 0.1 AS upper_bound
+        MIN(total_points) AS lower_bound,
+        MAX(total_points) AS upper_bound
     FROM
         bins
     GROUP BY
@@ -70,7 +73,7 @@ SELECT
     c.avg_odds_draw,
     p.drafts,
     p.drafts_norm,
-    s.price - s.variation AS price_cartola_express,
+    ROUND(s.price - s.variation, 2) AS price_cartola_express,
     t.tier,
     COALESCE(
         SUM(
@@ -144,4 +147,4 @@ LEFT JOIN
         s.player_id = p.player_id AND s.season = p.season AND s.round = p.round
 LEFT JOIN
     tiers AS t ON
-        s.season = t.season AND s.round = t.round AND s.total_points >= t.lower_bound AND s.total_points < upper_bound
+        s.season = t.season AND s.round = t.round AND s.total_points >= t.lower_bound AND s.total_points <= upper_bound
