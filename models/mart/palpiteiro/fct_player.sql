@@ -1,3 +1,33 @@
+WITH bins AS (
+    SELECT
+        season,
+        round,
+        total_points,
+        NTILE(
+            2
+        ) OVER (
+            PARTITION BY season, round, played ORDER BY total_points ASC
+        ) - 1 AS tier
+    FROM
+        {{ ref ("fct_scoring") }}
+    WHERE
+        status = 'expected'
+        AND played IS TRUE
+),
+
+tiers AS (
+    SELECT
+        season,
+        round,
+        tier,
+        MIN(total_points) AS lower_bound,
+        MAX(total_points) AS upper_bound
+    FROM
+        bins
+    GROUP BY
+        season, round, tier
+)
+
 SELECT
     s.player_id,
     s.season,
@@ -43,16 +73,8 @@ SELECT
     c.avg_odds_draw,
     p.drafts,
     p.drafts_norm,
-    s.price - s.variation AS price_cartola_express,
-    IF(
-        s.total_points IS NULL,
-        NULL,
-        NTILE(
-            2
-        ) OVER (
-            PARTITION BY s.season, s.round, s.played ORDER BY s.total_points ASC
-        ) - 1
-    ) AS tier,
+    t.tier,
+    ROUND(s.price - s.variation, 2) AS price_cartola_express,
     COALESCE(
         SUM(
             CAST(s.played AS INT64)
@@ -123,3 +145,9 @@ INNER JOIN
 LEFT JOIN
     {{ ref ("fct_popular") }} AS p ON
         s.player_id = p.player_id AND s.season = p.season AND s.round = p.round
+LEFT JOIN
+    tiers AS t ON
+        s.season = t.season
+        AND s.round = t.round
+        AND s.total_points >= t.lower_bound
+        AND s.total_points <= t.upper_bound
