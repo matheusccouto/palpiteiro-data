@@ -44,9 +44,15 @@ SELECT
     p.drafts,
     p.drafts_norm,
     s.price - s.variation AS price_cartola_express,
-    NTILE(
-        2
-    ) OVER (PARTITION BY s.season, s.round ORDER BY s.total_points ASC) AS tier,
+    IF(
+        s.total_points IS NULL,
+        NULL,
+        NTILE(
+            2
+        ) OVER (
+            PARTITION BY s.season, s.round, s.played ORDER BY s.total_points ASC
+        ) - 1
+    ) AS tier,
     COALESCE(
         SUM(
             CAST(s.played AS INT64)
@@ -109,7 +115,6 @@ SELECT
             s.player_id, c.home
         ORDER BY s.season, s.round ROWS BETWEEN 5 PRECEDING AND 1 PRECEDING
     ) AS defensive_points_last_5
-
 FROM
     {{ ref ("fct_scoring") }} AS s
 INNER JOIN
