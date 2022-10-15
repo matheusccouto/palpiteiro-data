@@ -73,8 +73,8 @@ SELECT
     c.avg_odds_draw,
     p.drafts,
     p.drafts_norm,
-    ROUND(s.price - s.variation, 2) AS price_cartola_express,
     t.tier,
+    ROUND(s.price - s.variation, 2) AS price_cartola_express,
     COALESCE(
         SUM(
             CAST(s.played AS INT64)
@@ -147,4 +147,7 @@ LEFT JOIN
         s.player_id = p.player_id AND s.season = p.season AND s.round = p.round
 LEFT JOIN
     tiers AS t ON
-        s.season = t.season AND s.round = t.round AND s.total_points >= t.lower_bound AND s.total_points <= upper_bound
+        s.season = t.season
+        AND s.round = t.round
+        AND s.total_points >= t.lower_bound
+        AND s.total_points <= t.upper_bound
