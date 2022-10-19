@@ -29,16 +29,23 @@ tiers AS (
 ),
 
 tiers_fixed AS (
-  SELECT
-    this.season,
-    this.round,
-    this.tier,
-    IF (this.lower_bound = prev.upper_bound, this.lower_bound + 0.1, this.lower_bound) AS lower_bound,
-    this.upper_bound,
-  FROM
-    tiers this
-  LEFT JOIN
-    tiers prev ON this.season = prev.season AND this.round = prev.round AND this.tier = prev.tier + 1
+    SELECT
+        this.season,
+        this.round,
+        this.tier,
+        this.upper_bound,
+        IF(
+            this.lower_bound = prev.upper_bound,
+            this.lower_bound + 0.1,
+            this.lower_bound
+        ) AS lower_bound
+    FROM
+        tiers AS this
+    LEFT JOIN
+        tiers AS prev ON
+            this.season = prev.season
+            AND this.round = prev.round
+            AND this.tier = prev.tier + 1
 )
 
 SELECT
