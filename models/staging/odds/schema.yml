@@ -4,6 +4,11 @@ models:
   - name: stg_brasileirao_h2h
     description: Brasileirão head-to-head odds.
     columns:
+      - name: match_slug
+        description: Matchup slug
+        tests:
+          - not_null
+          - unique
       - name: season
         description: Season
         tests:

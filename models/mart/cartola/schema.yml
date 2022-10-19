@@ -4,6 +4,11 @@ models:
   - name: fct_scoring
     description: Cartola players scoring for each round
     columns:
+      - name: play_id
+        description: Primary key
+        tests:
+          - not_null
+          - unique
       - name: player_id
         description: Player ID
         tests:
@@ -91,6 +96,11 @@ models:
 
   - name: fct_match
     description: Cartola matches
+    tests:
+      - unique:
+          column_name: season || '-' || round || '-' || club
+      - unique:
+          column_name: season || '-' || round || '-' || opponent
     columns:
       - name: season
         description: Season
@@ -152,6 +162,11 @@ models:
   - name: fct_popular
     description: 20 most popular players on Cartola for each round.
     columns:
+      - name: play_id
+        description: Play ID
+        tests:
+          - not_null
+          - unique
       - name: player_id
         description: Player ID
         tests:

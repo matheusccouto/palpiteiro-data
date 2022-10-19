@@ -10,6 +10,7 @@ WITH agg AS (
 )
 
 SELECT
+    p.play_id,
     p.season,
     p.round,
     p.player_id,

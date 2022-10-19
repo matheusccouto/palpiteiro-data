@@ -9,7 +9,10 @@ WITH scoring AS (
         sts.slug AS status,
         atl.pontos_num AS points,
         atl.preco_num AS price,
-        atl.variacao_num AS variation
+        atl.variacao_num AS variation,
+        (
+            atl.temporada_id - 2000
+        ) * 100000000 + atl.rodada_id * 1000000 + atl.atleta_id AS play_id
     FROM
         {{ source("cartola", "atletas") }} AS atl
     LEFT JOIN {{ ref ("dim_position") }} AS pos ON atl.posicao_id = pos.id
@@ -19,6 +22,7 @@ WITH scoring AS (
 )
 
 SELECT
+    curr.play_id,
     curr.player_id,
     curr.round,
     curr.season,

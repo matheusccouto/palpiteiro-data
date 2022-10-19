@@ -4,6 +4,11 @@ models:
   - name: stg_atletas_scoring
     description: Cartola players scoring for each round
     columns:
+      - name: play_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
       - name: player_id
         description: Player ID
         tests:
@@ -97,6 +102,16 @@ models:
   - name: stg_partidas_match
     description: Cartola matches
     columns:
+      - name: match_id
+        description: Primary key
+        tests:
+          - not_null
+          - unique
+      - name: match_slug
+        description: Match slug
+        tests:
+          - not_null
+          - unique
       - name: season
         description: Season
         tests:
@@ -127,6 +142,11 @@ models:
   - name: stg_pontuados_scoring
     description: Cartola players scoring for each round
     columns:
+      - name: play_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
       - name: player_id
         description: Player ID
         tests:
@@ -251,6 +271,11 @@ models:
   - name: stg_destaque_popular.sql
     description: 20 most popular players on Cartola for each round.
     columns:
+      - name: play_id
+        description: Play ID
+        tests:
+          - unique
+          - not_null
       - name: player_id
         description: Player ID
         tests:

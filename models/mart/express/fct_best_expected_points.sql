@@ -4,7 +4,9 @@ WITH popular AS (
         round,
         position,
         total_points,
-        ROW_NUMBER() OVER (PARTITION BY season, round, position ORDER BY total_points DESC) AS ranking
+        ROW_NUMBER() OVER (
+            PARTITION BY season, round, position ORDER BY total_points DESC
+        ) AS ranking
     FROM
         {{ ref("fct_scoring") }}
     WHERE

@@ -3,6 +3,9 @@ version: 2
 models:
   - name: fct_spi
     description: Brasileirão Fivethirtyeight Soccer Power Index
+    tests:
+      - unique:
+          column_name: season || '-' || date || '-' || club
     columns:
       - name: season
         description: Season
