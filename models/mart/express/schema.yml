@@ -1,8 +1,40 @@
 version: 2
 
 models:
-  - name: fct_squad
-    description: Most popular performance on Cartola Express
+  - name: fct_popular_points
+    description: Most popular line up performance on Cartola Express
+    columns:
+      - name: season
+        description: season
+        tests:
+          - not_null
+      - name: round
+        description: round
+        tests:
+          - not_null
+      - name: points
+        description: Amount of points that would have scored on Cartola express
+        tests:
+          - not_null
+
+  - name: fct_best_points
+    description: Best possible line up performance on Cartola Express
+    columns:
+      - name: season
+        description: season
+        tests:
+          - not_null
+      - name: round
+        description: round
+        tests:
+          - not_null
+      - name: points
+        description: Amount of points that would have scored on Cartola express
+        tests:
+          - not_null
+
+  - name: fct_best_expected_points
+    description: Best possible line up from expected to play performance on Cartola Express
     columns:
       - name: season
         description: season

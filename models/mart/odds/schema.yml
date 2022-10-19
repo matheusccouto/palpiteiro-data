@@ -3,6 +3,9 @@ version: 2
 models:
   - name: fct_h2h
     description: Brasileirão betting odds
+    tests:
+      - unique:
+          column_name: season || '-' || date(timestamp) || '-' || club
     columns:
       - name: season
         description: Season

@@ -12,7 +12,9 @@ SELECT
     spi.importance2 AS importance_away,
     spi.proj_score1 AS proj_score_home,
     spi.proj_score2 AS proj_score_away,
-    DATE(spi.date) AS date -- noqa: L029
+    DATE(spi.date) AS date, -- noqa: L029
+    CONCAT(spi.season, '-', c_home.slug, '-', c_away.slug) AS match_slug
+
 FROM
     {{ source ('fivethirtyeight', 'spi') }} AS spi
 LEFT JOIN {{ ref ("dim_slug") }} AS c_home ON spi.team1 = c_home.name

@@ -53,6 +53,7 @@ WITH scoring AS (
 
 point AS (
     SELECT
+        play_id,
         player_id,
         round,
         season,
@@ -65,6 +66,7 @@ point AS (
 )
 
 SELECT
+    atl.play_id,
     atl.player_id,
     atl.season,
     atl.round,
@@ -84,7 +86,4 @@ SELECT
 FROM
     {{ ref ("stg_atletas_scoring") }} AS atl
 LEFT JOIN
-    point AS pnt ON
-        atl.player_id = pnt.player_id
-        AND atl.season = pnt.season
-        AND atl.round = pnt.round
+    point AS pnt ON atl.play_id = pnt.play_id

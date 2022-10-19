@@ -4,6 +4,11 @@ models:
   - name: stg_spi_match
     description: Brasileirão Fivethirtyeight Soccer Power Index
     columns:
+      - name: match_slug
+        description: Matchup slug
+        tests:
+          - not_null
+          - unique
       - name: season
         description: Season
         tests:

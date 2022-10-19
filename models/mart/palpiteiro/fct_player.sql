@@ -26,9 +26,23 @@ tiers AS (
         bins
     GROUP BY
         season, round, tier
+),
+
+tiers_fixed AS (
+  SELECT
+    this.season,
+    this.round,
+    this.tier,
+    IF (this.lower_bound = prev.upper_bound, this.lower_bound + 0.1, this.lower_bound) AS lower_bound,
+    this.upper_bound,
+  FROM
+    tiers this
+  LEFT JOIN
+    tiers prev ON this.season = prev.season AND this.round = prev.round AND this.tier = prev.tier + 1
 )
 
 SELECT
+    s.play_id,
     s.player_id,
     s.season,
     s.round,
@@ -144,9 +158,9 @@ INNER JOIN
         s.club = c.club AND s.season = c.season AND s.round = c.round
 LEFT JOIN
     {{ ref ("fct_popular") }} AS p ON
-        s.player_id = p.player_id AND s.season = p.season AND s.round = p.round
+        s.play_id = p.play_id
 LEFT JOIN
-    tiers AS t ON
+    tiers_fixed AS t ON
         s.season = t.season
         AND s.round = t.round
         AND s.total_points >= t.lower_bound
