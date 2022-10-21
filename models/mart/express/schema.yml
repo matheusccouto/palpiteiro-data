@@ -48,3 +48,32 @@ models:
         description: Amount of points that would have scored on Cartola express
         tests:
           - not_null
+
+  - name: fct_norm_points
+    description: Normalize points and its prizes on Cartola Express
+    columns:
+      - name: rank_id
+        description: Contest rank ID
+        tests:
+          - unique
+          - not_null
+      - name: season
+        description: season
+        tests:
+          - not_null
+      - name: round
+        description: round
+        tests:
+          - not_null
+      - name: contest
+        description: Cartola Express contest ID
+        tests:
+          - not_null
+      - name: points_norm
+        description: Points normalized in between the most popular team points and the best possible team points
+        tests:
+          - not_null
+      - name: prizes
+        description: Prize that this amount of pointes earned in this contest
+        tests:
+          - not_null

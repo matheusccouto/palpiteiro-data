@@ -2,11 +2,8 @@ SELECT
     cnt.season,
     cnt.round,
     prz.contest,
-    prz.points,
-    prz.rank,
     prz.prizes,
-    pop.points AS points_popular,
-    bst.points AS points_best,
+    prz.contest * 100000 + prz.rank AS rank_id,
     (prz.points - pop.points) / (bst.points - pop.points) AS points_norm
 FROM
     {{ source("express", "prize") }} AS prz
