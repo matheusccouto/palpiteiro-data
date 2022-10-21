@@ -32,16 +32,6 @@ sources:
     tables:
       - name: brasileirao
 
-  - name: transfermarkt
-    freshness:
-      error_after:
-        count: 7
-        period: day
-    loaded_at_field: loaded_at
+  - name: express
     tables:
-      - name: appearances
-      - name: clubs
-      - name: competitions
-      - name: games
-      - name: player_valuations
-      - name: players
+      - name: prize
