@@ -8,7 +8,7 @@ SELECT
     fct.position,
     fct.price_cartola,
     fct.price_cartola_express,
-    EXP({{ target.dataset }}.PREDICT_POINTS(TO_JSON(fct))) AS points, -- noqa: L027, L016
+    {{ target.dataset }}.PREDICT_POINTS(TO_JSON(fct)) AS points, -- noqa: L027, L016
     CURRENT_TIMESTAMP AS materialized_at
 FROM
     {{ ref("fct_player") }} AS fct
