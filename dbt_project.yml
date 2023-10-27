@@ -15,37 +15,10 @@ clean-targets:
 
 seeds:
   palpiteiro:
-    cartola:
-      +schema: cartola
-    express:
-      +schema: express
-    palpiteiro:
-      +schema: palpiteiro
 
 models:
   palpiteiro:
-    staging:
-      +materialized: view
-      cartola:
-        schema: cartola
-      fivethirtyeight:
-        schema: fivethirtyeight
-      odds:
-        schema: odds
-    mart:
-      +materialized: view
-      cartola:
-        schema: cartola
-      express:
-        schema: express
-      fivethirtyeight:
-        schema: fivethirtyeight
-      odds:
-        schema: odds
-      palpiteiro:
-        schema: palpiteiro
-        dim_player_last:
-          materialized: table
 
-on-run-start:
-  - '{{ create_udfs() }}'
+
+# on-run-start:
+#   - '{{ create_udfs() }}'

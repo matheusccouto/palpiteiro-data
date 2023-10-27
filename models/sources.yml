@@ -2,6 +2,7 @@ version: 2
 
 sources:
   - name: cartola
+    database: matheusccouto
     freshness:
       error_after:
         count: 1
@@ -9,29 +10,10 @@ sources:
     loaded_at_field: loaded_at
     tables:
       - name: atletas
+      - name: clubes
+      - name: destaques
+      - name: esquemas
       - name: partidas
       - name: pontuados
-      - name: selecao
-      - name: destaques
-
-  - name: fivethirtyeight
-    freshness:
-      error_after:
-        count: 1
-        period: day
-    loaded_at_field: loaded_at
-    tables:
-      - name: spi
-
-  - name: odds
-    freshness:
-      error_after:
-        count: 1
-        period: day
-    loaded_at_field: loaded_at
-    tables:
-      - name: brasileirao
-
-  - name: express
-    tables:
-      - name: prize
+      - name: posicoes
+      - name: status

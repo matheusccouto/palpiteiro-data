@@ -4,6 +4,7 @@ keyfile.json
 # dbt
 target/
 logs/
+dbt_packages/
 
 # bigquery
 .user.yml

@@ -18,18 +18,19 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Authenticate GCP
-        uses: google-github-actions/auth@v0
+      - name: Authenticate Google Cloud
+        uses: google-github-actions/auth@v1
         with:
-          credentials_json: ${{ secrets.GCP_KEYFILE }}
+          workload_identity_provider: pprojects/1022055560421/locations/global/workloadIdentityPools/github-palpiteiro-data/providers/github
+          service_account: github-palpiteiro-data@palpiteiro-dev.iam.gserviceaccount.com
 
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
-          python-version: "3.10"
+          python-version: "3.11"
 
       - name: Install Requirements
-        run: pip install dbt-bigquery
+        run: pip install -r requirements
 
       - name: Build
         run: dbt build
