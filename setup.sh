@@ -43,6 +43,10 @@ echo Enable the IAM Credentials API.
 gcloud services enable iamcredentials.googleapis.com \
     --project "${PROJECT_ID}"
 
+echo Enable the Cloud Resource Manager API.
+gcloud services enable cloudresourcemanager.googleapis.com \
+    --project "${PROJECT_ID}"
+
 echo Create a Workload Identity Pool.
 gcloud iam workload-identity-pools create "${POOL}" \
     --project="${PROJECT_ID}" \
@@ -87,4 +91,5 @@ echo Grant access to the service account to create tables and jobs in the BigQue
 gcloud projects add-iam-policy-binding ${PROJECT_ID} \
   --member="serviceAccount:${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
   --role="roles/bigquery.dataEditor" \
-  --role="roles/bigquery.jobUser"
+  --role="roles/bigquery.jobUser" \
+  --role="roles/iam.serviceAccountTokenCreator"

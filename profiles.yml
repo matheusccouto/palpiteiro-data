@@ -1,12 +1,19 @@
 palpiteiro:
   outputs:
-    default:
-      dataset: palpiteiro
-      job_execution_timeout_seconds: 300
-      job_retries: 1
-      location: us
-      method: oauth
-      priority: interactive
-      threads: 4
+    dev:
       type: bigquery
-  target: default
+      method: oauth
+      project: palpiteiro-dev
+      dataset: palpiteiro
+      threads: 4 
+      location: us
+      priority: interactive
+    main:
+      type: bigquery
+      method: oauth
+      project: palpiteiro-main
+      dataset: palpiteiro
+      threads: 4 
+      location: us
+      priority: interactive
+  target: dev
