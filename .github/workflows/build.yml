@@ -9,6 +9,7 @@ on:
 permissions:
   contents: read
   id-token: write
+  pages: write
 
 jobs:
   dbt:
@@ -25,7 +26,7 @@ jobs:
           workload_identity_provider: projects/1022055560421/locations/global/workloadIdentityPools/github-palpiteiro-data/providers/github
           service_account: github-palpiteiro-data@palpiteiro-dev.iam.gserviceaccount.com
 
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v3
         with:
           python-version: "3.12"
@@ -41,7 +42,17 @@ jobs:
         run: |
           dbt docs generate
           mkdir docs
-          cp target/catalog.json docs/catalog.json
-          cp target/manifest.json docs/manifest.json
-          cp target/run_results.json docs/run_results.json
-          cp target/index.html docs/index.html
+          cp target/catalog.json __docs__/catalog.json
+          cp target/manifest.json __docs__/manifest.json
+          cp target/run_results.json __docs__/run_results.json
+          cp target/index.html __docs__/index.html
+
+      - name: Uppload Docs
+        uses: actions/upload-pages-artifact@v3
+        if: ${{ github.REF_NAME == 'main' }}
+        with:
+          path: __docs__
+
+      - name: Deploy Docs
+        uses: actions/deploy-pages@v4
+        if: ${{ github.REF_NAME == 'main' }}
