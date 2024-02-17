@@ -8,6 +8,7 @@ palpiteiro:
       threads: 4 
       location: us
       priority: interactive
+      keyfile: keyfile.json
       # impersonate_service_account: github-palpiteiro-data@palpiteiro-dev.iam.gserviceaccount.com
     main:
       type: bigquery

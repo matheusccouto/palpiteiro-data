@@ -23,11 +23,12 @@ jobs:
       - name: Authenticate Google Cloud
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: projects/1022055560421/locations/global/workloadIdentityPools/github-palpiteiro-data/providers/github
-          service_account: github-palpiteiro-data@palpiteiro-dev.iam.gserviceaccount.com
+          # workload_identity_provider: projects/1022055560421/locations/global/workloadIdentityPools/github-palpiteiro-data/providers/github
+          # service_account: github-palpiteiro-data@palpiteiro-dev.iam.gserviceaccount.com
+          credentials_json: ${{ secrets.GCP_KEYFILE }}
       
-      - name: Setup Google Cloud
-        uses: google-github-actions/setup-gcloud@v2
+      # - name: Setup Google Cloud
+      #   uses: google-github-actions/setup-gcloud@v2
 
       - name: Setup Python
         uses: actions/setup-python@v5
