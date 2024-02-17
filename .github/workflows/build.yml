@@ -11,23 +11,20 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ github.REF_NAME }}
 
-    env:
-      DBT_PROFILES_DIR: "."
-
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Authenticate Google Cloud
         uses: google-github-actions/auth@v1
         with:
-          workload_identity_provider: pprojects/1022055560421/locations/global/workloadIdentityPools/github-palpiteiro-data/providers/github
+          workload_identity_provider: projects/1022055560421/locations/global/workloadIdentityPools/github-palpiteiro-data/providers/github
           service_account: github-palpiteiro-data@palpiteiro-dev.iam.gserviceaccount.com
 
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
-          python-version: "3.11"
+          python-version: "3.12"
 
       - name: Install Requirements
         run: pip install -r requirements

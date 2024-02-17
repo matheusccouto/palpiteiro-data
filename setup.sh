@@ -29,7 +29,7 @@ PROVIDER_DISPLAY_NAME="github"
 DATASET_ID="palpiteiro"
 
 echo Log in using browser.
-gcloud auth login
+gcloud auth login --no-launch-browser
 
 echo Set project.
 gcloud config set project "${PROJECT_ID}"
