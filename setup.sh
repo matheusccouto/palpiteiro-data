@@ -43,41 +43,6 @@ echo Enable the IAM Credentials API.
 gcloud services enable iamcredentials.googleapis.com \
     --project "${PROJECT_ID}"
 
-echo Create a Workload Identity Pool.
-gcloud iam workload-identity-pools create "${POOL}" \
-    --project="${PROJECT_ID}" \
-    --location="global" \
-    --display-name="${POOL_DISPLAY_NAME}"
-
-echo Get the full ID of the Workload Identity Pool.
-WORKLOAD_IDENTITY_POOL_ID=$(gcloud iam workload-identity-pools describe "${POOL}" \
-  --project="${PROJECT_ID}" \
-  --location="global" \
-  --format="value(name)")
-echo ${WORKLOAD_IDENTITY_POOL_ID}
-
-echo Create a Workload Identity Provider in that pool.
-gcloud iam workload-identity-pools providers create-oidc "${PROVIDER}" \
-  --project="${PROJECT_ID}" \
-  --location="global" \
-  --workload-identity-pool="${POOL}" \
-  --display-name="${PROVIDER_DISPLAY_NAME}" \
-  --attribute-mapping="google.subject=assertion.sub,attribute.actor=assertion.actor,attribute.repository=assertion.repository" \
-  --issuer-uri="https://token.actions.githubusercontent.com"
-
-echo Allow authentications from the Workload Identity Provider originating from your repository to impersonate the Service Account created above.
-gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
-  --project="${PROJECT_ID}" \
-  --role="roles/iam.workloadIdentityUser" \
-  --member="principalSet://iam.googleapis.com/${WORKLOAD_IDENTITY_POOL_ID}/attribute.repository/${REPO}"
-
-echo Extract the Workload Identity Provider resource name.
-gcloud iam workload-identity-pools providers describe "${PROVIDER}" \
-  --project="${PROJECT_ID}" \
-  --location="global" \
-  --workload-identity-pool="${POOL}" \
-  --format="value(name)"
-
 echo Create a BigQuery dataset
 bq --project_id="${PROJECT_ID}" \
   mk --dataset \

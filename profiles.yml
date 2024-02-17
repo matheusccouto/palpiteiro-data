@@ -1,22 +1,10 @@
 palpiteiro:
   outputs:
-    dev:
+    default:
       type: bigquery
       method: oauth
-      project: palpiteiro-dev
       dataset: palpiteiro
       threads: 4 
       location: us
       priority: interactive
-      keyfile: keyfile.json
-      # impersonate_service_account: github-palpiteiro-data@palpiteiro-dev.iam.gserviceaccount.com
-    main:
-      type: bigquery
-      method: oauth
-      project: palpiteiro-main
-      dataset: palpiteiro
-      threads: 4 
-      location: us
-      priority: interactive
-      # impersonate_service_account: github-palpiteiro-data@palpiteiro-main.iam.gserviceaccount.com
-  target: dev
+  target: default
