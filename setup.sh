@@ -28,8 +28,8 @@ PROVIDER_DISPLAY_NAME="github"
 # The name of the Google BigQuery Dataset.
 DATASET_ID="palpiteiro"
 
-# # echo Log in using browser.
-# gcloud auth login
+echo Log in using browser.
+gcloud auth login
 
 echo Set project.
 gcloud config set project "${PROJECT_ID}"
