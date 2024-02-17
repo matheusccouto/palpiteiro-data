@@ -1,5 +1,5 @@
 build: pip gcloud
-	pip install -r requirements.txt -r requirements-dev.txt
+	pip install -r requirements.txt -r requirements-lint.txt
 	dbt deps
 pip:
 	pip install --upgrade pip wheel

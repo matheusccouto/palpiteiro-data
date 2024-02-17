@@ -1,7 +1,23 @@
-WITH source AS (
+with play as (
 
-    SELECT * FROM {{ ref("stg_atletas__play") }}
-    
+    select * from {{ ref("stg_atletas__play") }}
+
+),
+
+scoring as (
+
+    select * from {{ ref("stg_pontuados__scoring") }}
+
 )
 
-SELECT * FROM source
+select
+    p.player_id,
+    p.club_id,
+    p.season,
+    p.round,
+    p.position,
+    p.status,
+    p.price,
+    p.variation
+
+from play as p
