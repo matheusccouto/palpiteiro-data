@@ -31,10 +31,10 @@ jobs:
           python-version: "3.12"
 
       - name: Install Requirements
-        run: pip install -r requirements
+        run: pip install -r requirements.txt
 
       - name: Build
-        run: dbt build
+        run: dbt build --target dev
 
       - name: Generate Docs
         if: ${{ github.REF_NAME == 'main' }}
@@ -45,10 +45,3 @@ jobs:
           cp target/manifest.json docs/manifest.json
           cp target/run_results.json docs/run_results.json
           cp target/index.html docs/index.html
-
-      - name: Deploy Github Pages
-        if: ${{ github.REF_NAME == 'main' }}
-        uses: JamesIves/github-pages-deploy-action@v4.3.3
-        with:
-          branch: github-pages
-          folder: docs
