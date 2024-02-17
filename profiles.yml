@@ -8,7 +8,6 @@ palpiteiro:
       threads: 4 
       location: us
       priority: interactive
-      impersonate_service_account: github-palpiteiro-data@palpiteiro-dev.iam.gserviceaccount.com
     main:
       type: bigquery
       method: oauth
@@ -17,5 +16,4 @@ palpiteiro:
       threads: 4 
       location: us
       priority: interactive
-      impersonate_service_account: github-palpiteiro-data@palpiteiro-main.iam.gserviceaccount.com
   target: dev
