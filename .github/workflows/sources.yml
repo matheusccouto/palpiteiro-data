@@ -6,38 +6,36 @@ on:
   workflow_dispatch:
 
 jobs:
-  dbt:
+  freshness:
     strategy:
       fail-fast: false
       matrix:
         env:
           - main
           - dev
-
+          
     runs-on: ubuntu-latest
     environment: ${{ matrix.env }}
-
-    env:
-      DBT_PROFILES_DIR: "."
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           ref: ${{ matrix.env }}
 
-      - name: Authenticate GCP
-        uses: google-github-actions/auth@v0
+      - name: Authenticate Google Cloud
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_KEYFILE }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v3
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: "3.11"
 
       - name: Install Requirements
-        run: pip install dbt-bigquery
+        run: pip install -r requirements.txt
 
       - name: Freshness
         run: dbt source freshness
+
+   steps:

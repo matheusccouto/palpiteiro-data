@@ -9,7 +9,7 @@ permissions:
   pages: write
 
 jobs:
-  dbt:
+  build:
     runs-on: ubuntu-latest
     environment: ${{ github.REF_NAME }}
 
