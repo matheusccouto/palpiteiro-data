@@ -31,7 +31,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Build
-        run: dbt build --target dev
+        run: dbt build
 
       - name: Generate Docs
         if: ${{ github.REF_NAME == 'main' }}
