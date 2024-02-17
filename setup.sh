@@ -28,8 +28,8 @@ PROVIDER_DISPLAY_NAME="github"
 # The name of the Google BigQuery Dataset.
 DATASET_ID="palpiteiro"
 
-echo Log in using browser.
-gcloud auth login
+# echo Log in using browser.
+# gcloud auth login
 
 echo Set project.
 gcloud config set project "${PROJECT_ID}"
@@ -41,10 +41,6 @@ echo ${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com
 
 echo Enable the IAM Credentials API.
 gcloud services enable iamcredentials.googleapis.com \
-    --project "${PROJECT_ID}"
-
-echo Enable the Cloud Resource Manager API.
-gcloud services enable cloudresourcemanager.googleapis.com \
     --project "${PROJECT_ID}"
 
 echo Create a Workload Identity Pool.
@@ -87,9 +83,27 @@ bq --project_id="${PROJECT_ID}" \
   mk --dataset \
   "${PROJECT_ID}:${DATASET_ID}"
 
-echo Grant access to the service account to create tables and jobs in the BigQuery dataset
+echo Grant access to the service account to BigQuery Job User
 gcloud projects add-iam-policy-binding ${PROJECT_ID} \
   --member="serviceAccount:${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
-  --role="roles/bigquery.dataEditor" \
-  --role="roles/bigquery.jobUser" \
-  --role="roles/iam.serviceAccountTokenCreator"
+  --role="roles/bigquery.jobUser" 
+
+echo Grant access to the service account to BigQuery Data Editor
+gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+  --member="serviceAccount:${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
+  --role="roles/bigquery.dataEditor"
+
+echo Get the email of the currently authenticated user
+ACCOUNT=$(gcloud config get-value account)
+
+echo Grant permissions to the user on the service account
+gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
+  --project="${PROJECT_ID}" \
+  --member="user:$ACCOUNT" \
+  --role=roles/iam.serviceAccountTokenCreator
+
+echo Grant permissions to the service account on itself
+gcloud iam service-accounts add-iam-policy-binding "${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
+  --project="${PROJECT_ID}" \
+  --member="serviceAccount:${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com" \
+  --role=roles/iam.serviceAccountTokenCreator
