@@ -44,6 +44,7 @@ fix_played as (
         player_id,
         season,
         round,
+        club_id,
         coalesce(
             played,
             goal
@@ -83,6 +84,7 @@ renamed as (
         player_id,
         season,
         round,
+        club_id,
         played,
         if(played is TRUE, offensive, NULL) as offensive_points,
         if(played is TRUE, defensive, NULL) as defensive_points,

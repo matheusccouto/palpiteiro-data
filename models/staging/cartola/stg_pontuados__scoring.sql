@@ -10,6 +10,7 @@ renamed as (
         atleta_id as player_id,
         _temporada as season,
         _rodada as round,
+        clube_id as club_id,
         posicao_id as position,
         entrou_em_campo as played,
         pontuacao as points,
