@@ -1,6 +1,6 @@
-with stg_pontuados__scoring as (
+with stg_pontuados__scores as (
 
-    select * from {{ ref("stg_pontuados__scoring") }}
+    select * from {{ ref("stg_pontuados__scores") }}
 
 ),
 
@@ -35,7 +35,7 @@ points as (
 
 
     from
-        stg_pontuados__scoring
+        stg_pontuados__scores
 ),
 
 fix_played as (

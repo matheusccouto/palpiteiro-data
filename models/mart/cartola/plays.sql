@@ -1,18 +1,18 @@
 with play as (
 
-    select * from {{ ref("stg_atletas__play") }}
+    select * from {{ ref("stg_atletas__plays") }}
 
 ),
 
 player_scoring as (
 
-    select * from {{ ref("scoring") }}
+    select * from {{ ref("scores") }}
 
 ),
 
 matches as (
 
-    select * from {{ ref("stg_partidas__match") }}
+    select * from {{ ref("stg_partidas__matches") }}
 
 ),
 

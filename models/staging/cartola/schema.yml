@@ -139,7 +139,7 @@ models:
         tests:
           - not_null
 
-  - name: stg_pontuados_scoring
+  - name: stg_pontuados__scores
     description: Cartola players scoring for each round
     columns:
       - name: play_id
