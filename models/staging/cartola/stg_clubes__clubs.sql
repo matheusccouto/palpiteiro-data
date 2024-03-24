@@ -12,9 +12,9 @@ renamed as (
         _rodada as round,
         nome as name,
         abreviacao as abbreviation,
-        escudos.30x30 as badge_30,
-        escudos.45x45 as badge_45,
-        escudos.60x60 as badge_60
+        escudos.30x30 as badge_30,  -- noqa
+        escudos.45x45 as badge_45,  -- noqa
+        escudos.60x60 as badge_60  -- noqa
 
     from source
 
@@ -31,8 +31,10 @@ grouped as (
         badge_60
 
     from renamed
-    
-    qualify row_number() over (partition by club_id order by season desc, round desc) = 1
+
+    qualify row_number()
+        over (partition by club_id order by season desc, round desc)
+    = 1
 
 )
 

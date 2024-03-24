@@ -13,13 +13,13 @@ renamed as (
         clube_id as club_id,
         apelido as nickname,
         apelido_abreviado as short_nickname,
-        foto as photo,
         posicao_id as position,
         status_id as status,
         preco_num as price,
         variacao_num as variation,
         entrou_em_campo as played,
-        pontos_num as points
+        pontos_num as points,
+        replace(foto, 'FORMATO', '220x220') as photo
 
     from source
 
