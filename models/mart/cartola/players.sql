@@ -4,6 +4,12 @@ with players as (
 
 ),
 
+status as (
+
+    select * from {{ ref("stg_status__status") }}
+
+),
+
 scores as (
 
     select * from {{ ref("scores") }}
@@ -20,6 +26,19 @@ picks as (
 clubs as (
 
     select * from {{ ref("clubs") }}
+
+),
+
+join_status as (
+
+    select
+        players.* except (status),
+        status.status_id,
+        status.name as status
+
+    from players
+
+    left join status on players.status = status.status_id
 
 ),
 
@@ -42,7 +61,7 @@ join_player_scoring as (
         players.photo,
         coalesce(scores.played, FALSE) as played
 
-    from players
+    from join_status as players
 
     left join scores
         on
