@@ -48,12 +48,12 @@ translated as (
             when name = 'Zagueiro' then 'Defender'
         end as name,
         case
-            when name = 'ata' then 'FWD'
-            when name = 'gol' then 'GK'
-            when name = 'lat' then 'FB'
-            when name = 'mei' then 'MID'
-            when name = 'tec' then 'COA'
-            when name = 'zag' then 'DEF'
+            when abbreviation = 'ata' then 'FWD'
+            when abbreviation = 'gol' then 'GK'
+            when abbreviation = 'lat' then 'FB'
+            when abbreviation = 'mei' then 'MID'
+            when abbreviation = 'tec' then 'COA'
+            when abbreviation = 'zag' then 'DEF'
         end as abbreviation
 
     from drop_duplicates
