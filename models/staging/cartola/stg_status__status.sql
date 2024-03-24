@@ -38,11 +38,11 @@ translated as (
     select
         status_id,
         case
-            when name = 'Dúvida' then 'doubt'
-            when name = 'Suspenso' then 'suspended'
-            when name = 'Contundido' then 'injured'
-            when name = 'Nulo' then 'null'
-            when name = 'Provável' then 'probable'
+            when name = 'Dúvida' then 'Doubt'
+            when name = 'Suspenso' then 'Suspended'
+            when name = 'Contundido' then 'Injured'
+            when name = 'Nulo' then 'Null'
+            when name = 'Provável' then 'Probable'
         end as name
 
     from drop_duplicates

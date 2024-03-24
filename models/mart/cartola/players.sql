@@ -10,6 +10,12 @@ status as (
 
 ),
 
+positions as (
+
+    select * from {{ ref("stg_posicoes__positions") }}
+
+),
+
 scores as (
 
     select * from {{ ref("scores") }}
@@ -42,6 +48,20 @@ join_status as (
 
 ),
 
+join_position as (
+
+    select
+        players.* except (position),
+        positions.position_id,
+        positions.name as position,
+        positions.abbreviation as position_abbreviation
+
+    from join_status as players
+
+    left join positions on players.position = positions.position_id
+
+),
+
 join_player_scoring as (
 
     select
@@ -50,6 +70,7 @@ join_player_scoring as (
         players.season,
         players.round,
         players.position,
+        players.position_abbreviation,
         players.status,
         players.price,
         players.variation,
@@ -61,7 +82,7 @@ join_player_scoring as (
         players.photo,
         coalesce(scores.played, FALSE) as played
 
-    from join_status as players
+    from join_position as players
 
     left join scores
         on
