@@ -42,7 +42,7 @@ translated as (
             when name = 'Suspenso' then 'Suspended'
             when name = 'Contundido' then 'Injured'
             when name = 'Nulo' then 'Null'
-            when name = 'Provável' then 'Probable'
+            when name = 'Provável' then 'Expected'
         end as name
 
     from drop_duplicates
