@@ -32,7 +32,7 @@ jobs:
         run: pip install dbt-bigquery
 
       - name: Build
-        run: dbt build
+        run: dbt run
 
       - name: Generate Docs
         if: ${{ github.REF_NAME == 'main' }}
