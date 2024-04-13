@@ -174,12 +174,12 @@ FROM
 INNER JOIN
     club AS o ON
         c.opponent = o.club AND c.season = o.season AND c.round = o.round
-INNER JOIN
+LEFT JOIN
     {{ ref ("fct_spi") }} AS s ON
         EXTRACT(
             DATE FROM c.timestamp AT TIME ZONE 'America/Sao_Paulo'
         ) = s.date AND c.club = s.club
-INNER JOIN
+LEFT JOIN
     {{ ref ("fct_h2h") }} AS h2h ON
         EXTRACT(
             DATE FROM h2h.timestamp AT TIME ZONE 'America/Sao_Paulo'
