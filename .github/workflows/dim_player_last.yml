@@ -39,5 +39,5 @@ jobs:
       - name: Install Requirements
         run: pip install dbt-bigquery
 
-      - name: Build
+      - name: Run
         run: dbt run --select +dim_player_last
